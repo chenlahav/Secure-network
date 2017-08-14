@@ -12,9 +12,15 @@
 		<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="text-center">Welcome</h1>
+						<h1 class="text-center">Create new account</h1>
 					</div>
 						<div class="modal-body">
+							<div class="form-group">
+								<input type="text" name="first name" class="form-control input-lg" placeholder="First name"/>
+							</div>
+							<div class="form-group">
+								<input type="text" name="last name" class="form-control input-lg" placeholder="Last name"/>
+							</div>
 							<div class="form-group">
 								<input type="text" name="username" class="form-control input-lg" placeholder="Username"/>
 							</div>
@@ -23,13 +29,9 @@
 								<input type="password" name="password" class="form-control input-lg" placeholder="Password"/>
 							</div>
 							
-							<div class="form-group">
-								<input type="text" name="last name" class="form-control input-lg" placeholder="Password"/>
-							</div>
 			
 							<div class="form-group">
 								<input type="submit" class="btn btn-block btn-lg btn-primary" value="Login"/>
-								<span class="pull-right"><a href="#">Register</a></span><span><a href="#">Forgot Password</a></span>
 							</div>
 						</div>
 				</div>
