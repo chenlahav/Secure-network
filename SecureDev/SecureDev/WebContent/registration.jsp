@@ -8,13 +8,19 @@
 <title>Registration</title>
 </head>
 <body>
-	<form action="LoginController" method="post">
+	<form action="RegisterController" method="post">
 		<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h1 class="text-center">Create new account</h1>
 					</div>
 						<div class="modal-body">
+			
+							<div class="form-group">
+								<label for="id" class="col-sm-3 control-label">ID</label>
+								<input type="text" name="id" class="form-control input-lg" placeholder="Your ID"/>
+							</div>
+							
 							<div class="form-group">
 								<label for="firstName" class="col-sm-3 control-label">First Name</label>
 								<input type="text" name="first name" class="form-control input-lg" placeholder="First name"/>
@@ -46,7 +52,7 @@
 							</div>
 							
 							<div class="form-group">
-								 <label for="b-date" class="col-sm-3 control-label">Gender</label>
+								 <label for="gender" class="col-sm-3 control-label">Gender</label>
 							 	 <input type="radio" name="gender" value="Male" checked>Male<br>
   								 <input type="radio" name="gender" value="Female">Female
   							</div> 

@@ -32,7 +32,7 @@
 			
 							<div class="form-group">
 								<input type="submit" class="btn btn-block btn-lg btn-primary" value="Login"/>
-								<span class="pull-right"><a href="#">Register</a></span><span><a href="#">Forgot Password</a></span>
+								<span class="pull-right"><a href="registration.jsp">Register</a></span><span><a href="#">Forgot Password</a></span>
 							</div>
 						</div>
 				</div>
