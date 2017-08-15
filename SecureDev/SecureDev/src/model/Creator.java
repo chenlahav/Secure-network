@@ -19,7 +19,7 @@ public class Creator {
 				
 				//~~~~~~~~~~~~~~~Change The path of the SQLite database.~~~~~~~~~~~~~~~~~~~~~~
 				
-				c = DriverManager.getConnection("jdbc:sqlite:C:/Users/CHEN/Desktop/SecureDev/SecureDev/resource/db.sqlite");
+				c = DriverManager.getConnection("jdbc:sqlite:C:/Users/CHEN/Documents/GitHub/Secure-network/SecureDev/SecureDev/resource/db.sqlite");
 				stmt = c.createStatement();
 				String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES ('"+id+"','"+username+"','"+password+"','"+first_name+"','"+last_name+"','"+email+"','"+bdate+"','"+gender+"');";
 
