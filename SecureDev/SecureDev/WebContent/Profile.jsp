@@ -14,6 +14,7 @@
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
 <body>
+<form action="ProfileController" method="post">
 <body class="w3-theme-l5">
 <!-- Profile -->
   <div class="w3-card-2 w3-round w3-white">
@@ -26,5 +27,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
     </div>
 </div>
+</body>
+</form>
 </body>
 </html>

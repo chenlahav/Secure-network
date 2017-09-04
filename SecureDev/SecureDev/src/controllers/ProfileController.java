@@ -13,6 +13,7 @@ import java.sql.*;
 import model.Authenticator;
 import model.Creator;
 import model.User;
+import Repository.UserRepository;
  
 import sun.text.normalizer.ICUBinary.Authenticate;
 
@@ -21,12 +22,9 @@ public class ProfileController extends HttpServlet {
 	
 	protected void postp(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Connection c = DriverManager.getConnection("jdbc:sqlite:C:/Users/Owner/Documents/GitHub/Secure-network/SecureDev/SecureDev/resource/db.sqlite");
-		Statement stmt = c.createStatement();
-		String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES ('"+id+"','"+username+"','"+password+"','"+first_name+"','"+last_name+"','"+email+"','"+bdate+"','"+gender+"');";
 		RequestDispatcher rd = null;
 		rd = request.getRequestDispatcher("/Profile.jsp");
-		String u = getUsername();
+		String u = "Hilla";
 		request.setAttribute("user", u);
 
 		rd.forward(request, response);
