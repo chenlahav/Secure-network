@@ -9,21 +9,25 @@ import model.User;
 
 public class UserRepository extends AbstractRepository{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public UserRepository() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public String addUser(User newUser){
 		
-		Connection c = this.connectionToDB();
+		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES ('"+newUser.getId()+","+newUser.getUsername()+","+newUser.getPassword()+","+ newUser.getFirstName()+","+newUser.getLastName()+","+newUser.getEmail()+","+newUser.getBday()+","+newUser.getGender()+"');";
+				String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES ('"+newUser.getId()+"','"+newUser.getUsername()+"','"+newUser.getPassword()+"','"+ newUser.getFirstName()+"','"+newUser.getLastName()+"','"+newUser.getEmail()+"','"+newUser.getBday()+"','"+newUser.getGender()+"');";
 				int rs = stmt.executeUpdate(sql);
 				if (rs!=0) {
-					return "succses";
+					return "success";
 				  } 
 				else
 				  {
@@ -40,7 +44,7 @@ public class UserRepository extends AbstractRepository{
 		}
 	}
 	public User getUser(String id){
-		Connection c = this.connectionToDB();
+		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
 				Statement stmt = null;
