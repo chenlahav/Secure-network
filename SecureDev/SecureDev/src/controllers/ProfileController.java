@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 
 import model.Authenticator;
-import model.Creator;
 import model.User;
 import Repository.UserRepository;
  
