@@ -26,7 +26,7 @@ public class Authenticator {
 			Class.forName("org.sqlite.JDBC");
 			
 			//~~~~~~~~~~~~~~~Change The path of the SQLite database.~~~~~~~~~~~~~~~~~~~~~~
-			c = DriverManager.getConnection("jdbc:sqlite:C:/Users/CHEN/Documents/GitHub/Secure-network/SecureDev/SecureDev/resource/db.sqlite");
+			c = DriverManager.getConnection("jdbc:sqlite:C:/Users/snirkol/Documents/GitHub rep/Secure-network/SecureDev/SecureDev/resource/db.sqlite");
 			stmt = c.createStatement();
 			String sql = "select * from tblusers where username='" + username + "' and password='" + password + "';";
 			
