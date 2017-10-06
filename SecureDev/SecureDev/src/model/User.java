@@ -1,14 +1,5 @@
 package model;
 
-import java.io.IOException;
-import java.sql.Date;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class that defines the user object.
@@ -24,10 +15,6 @@ public class User {
 	private String lastName;
 	private String Bday;
 	private String gender;
-	
-	
- 
-
 
 	public User(String username, String password, String id, String email, String firstName, String lastName,
 			String bday, String gender) {

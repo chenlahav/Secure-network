@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
  
 import model.Authenticator;
 import model.User;
- 
-import sun.text.normalizer.ICUBinary.Authenticate;
- 
+  
 public class LoginController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
  
+	private static final long serialVersionUID = 407056058428113610L;
+
 	public LoginController() {
 		super();
 	}

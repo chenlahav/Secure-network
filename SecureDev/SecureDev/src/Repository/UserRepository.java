@@ -1,4 +1,4 @@
-package Repository;
+	package Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,15 +8,15 @@ import Repository.AbstractRepository;
 import model.User;
 
 public class UserRepository extends AbstractRepository{
-	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2789556140998785078L;
+	
 	public UserRepository() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public String addUser(User newUser){
 		
 		Connection c = AbstractRepository.connectionToDB();
@@ -34,7 +34,8 @@ public class UserRepository extends AbstractRepository{
 					return "failed";
 				  }
 			   }catch (Exception e){
-				   return "SQL ERROR";
+					e.printStackTrace();
+					return "SQL ERROR";
 			   }
 			}
 
@@ -43,6 +44,7 @@ public class UserRepository extends AbstractRepository{
 			return "Connection ERROR";
 		}
 	}
+	
 	public User getUser(String id){
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
@@ -59,7 +61,7 @@ public class UserRepository extends AbstractRepository{
 					userRequested.setLastName(rs.getString("lastName"));
 					userRequested.setEmail(rs.getString("email"));
 					userRequested.setBday(rs.getString("birthOfDate"));
-					userRequested.setGender(rs.getString("gnder"));
+					userRequested.setGender(rs.getString("gender"));
 					return userRequested;
 				  } 
 				else
@@ -67,7 +69,8 @@ public class UserRepository extends AbstractRepository{
 					return null;
 				  }
 			   }catch (Exception e){
-				   return null;
+					e.printStackTrace();
+					return null;
 			   }
 			}
 
@@ -76,4 +79,33 @@ public class UserRepository extends AbstractRepository{
 			return null;
 		}
 	}
+	
+	public String userAuthenticator(User user){
+		Connection c = AbstractRepository.connectionToDB();
+		if (c!=null){
+			try{
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql="select * from tblusers where username='" + user.getUsername() + "' and password='" + user.getPassword() + "';";
+				ResultSet rs = stmt.executeQuery(sql);
+				if (rs.next()) {
+					return "success";
+				  } 
+				else
+				  {
+					return "failure";
+				  }
+			   }catch (Exception e){
+					e.printStackTrace();
+					return "SQL ERROR";
+			   }
+			}
+
+		else
+		{
+			return null;
+		}
+	}
+	
+	
 }
