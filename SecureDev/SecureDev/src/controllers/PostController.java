@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 import model.Authenticator;
+import model.Post;
 import model.User;
+import sun.rmi.server.Dispatcher;
+import Repository.PostRepository;
  
 
 public class PostController extends HttpServlet {
@@ -26,19 +30,18 @@ public class PostController extends HttpServlet {
 	*/
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
- 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		RequestDispatcher rd = null;
- 
-		Authenticator authenticator = new Authenticator();
-		String result = authenticator.authenticate(username, password);
+		PostRepository postrepository = new PostRepository();
+		//List<Post> result = postrepository.getAllPosts();
+		Post result = postrepository.getPost(1);
 		
-		if (result.equals("success")) 
+		//request.setAttribute("allposts", "hello world");
+		RequestDispatcher rd = null;
+		//rd = request.getRequestDispatcher("/Forum.jsp");
+ 		
+		if (!result.equals(null)) 
 		{
-			rd = request.getRequestDispatcher("/success.jsp");
-			User user = new User(username, password);
-			request.setAttribute("user", user);
+			rd = request.getRequestDispatcher("/Forum.jsp");
+			request.setAttribute("allpost", result);
 		} 
 		else
 		{
@@ -46,6 +49,8 @@ public class PostController extends HttpServlet {
 		}
 		
 		rd.forward(request, response);
+		
+		
 	}
 
 	protected void doGet(HttpServletRequest request,HttpServletResponse response)

@@ -21,4 +21,15 @@
     <servlet-name>RegisterController</servlet-name>
     <url-pattern>/RegisterController</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>PostController</display-name>
+    <servlet-name>PostController</servlet-name>
+    <servlet-class>controllers.PostController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostController</servlet-name>
+    <url-pattern>/PostController</url-pattern>
+  </servlet-mapping>
 </web-app>

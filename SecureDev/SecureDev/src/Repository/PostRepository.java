@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import model.Post;
 
 public class PostRepository extends AbstractRepository
@@ -92,17 +93,18 @@ public class PostRepository extends AbstractRepository
 		}
 	}
 
-	public Post getPost()
+	public Post getPost(int id)
 	{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql="SELECT * FROM tblpost;";
+				String sql="SELECT * FROM tblpost WHERE id="+id+";";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("author"),rs.getDate("date"),rs.getTime("time"));
+					//Time timeParse = (Time) new SimpleTimeZone("HH:mm:ss").parse(rs.getString("time"));
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getDate("date"),rs.getTime("time"));
 					return postRequested;
 				}
 			 }catch (Exception e){
