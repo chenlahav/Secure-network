@@ -12,12 +12,15 @@ public class Event {
 	private String location;
 	private String creator;
 	
-	public Event(String event_name, Date date, Time time, String description, String location, String creator) {
+	public Event(int id, String event_name, Date date, Time time, String description, String location, String creator) {
 		super();
+		this.id = id;
 		this.event_name = event_name;
 		this.date = date;
 		this.time = time;
 		this.description = description;
+		this.location = location;
+		this.creator = creator;
 	}
 
 	public int getId() {
