@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class that defines the user object.
@@ -13,11 +15,11 @@ public class User {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private String Bday;
+	private Date Bday;
 	private String gender;
 
 	public User(String username, String password, String id, String email, String firstName, String lastName,
-			String bday, String gender) {
+			Date bday, String gender) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -25,7 +27,7 @@ public class User {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		Bday = bday;
+		this.Bday = bday;
 		this.gender = gender;
 	}
 	
@@ -85,11 +87,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getBday() {
+	public Date getBday() {
 		return Bday;
 	}
 
-	public void setBday(String bday) {
+	public void setBday(Date bday) {
 		Bday = bday;
 	}
 
