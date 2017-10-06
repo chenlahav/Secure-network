@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Repository.UserRepository;
 import model.Authenticator;
 import model.User;
   
@@ -37,8 +38,9 @@ public class LoginController extends HttpServlet {
 		
 		if (result.equals("success")) 
 		{
-			rd = request.getRequestDispatcher("/success.jsp");
-			User user = new User(username, password);
+			rd = request.getRequestDispatcher("/Profile.jsp");
+			UserRepository ur = new UserRepository();
+			User user = ur.getUserByUsername(username);
 			HttpSession session = request.getSession();
 			session.setAttribute("username", user.getUsername());
 			session.setAttribute("userID", user.getId());

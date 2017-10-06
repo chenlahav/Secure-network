@@ -15,11 +15,11 @@ public class User {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private Date Bday;
+	private String Bday;
 	private String gender;
 
 	public User(String username, String password, String id, String email, String firstName, String lastName,
-			Date bday, String gender) {
+			String bday, String gender) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -87,11 +87,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Date getBday() {
+	public String getBday() {
 		return Bday;
 	}
 
-	public void setBday(Date bday) {
+	public void setBday(String bday) {
 		Bday = bday;
 	}
 

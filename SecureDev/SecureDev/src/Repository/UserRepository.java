@@ -104,7 +104,7 @@ public class UserRepository extends AbstractRepository{
 				String sql="SELECT * FROM tblusers WHERE id = "+id+";";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
 					return userRequested;
 				  } 
 				else
@@ -125,10 +125,10 @@ public class UserRepository extends AbstractRepository{
 			try{
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql="SELECT * FROM tblusers WHERE username = "+username+";";
+				String sql="SELECT * FROM tblusers WHERE username = '"+username+"';";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
 					return userRequested;
 				  } 
 				else
@@ -176,7 +176,7 @@ public class UserRepository extends AbstractRepository{
 				ResultSet rs = stmt.executeQuery(sql);
 				List<User> allUsers = new ArrayList<>();
 				while (rs.next()) {
-					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
 					allUsers.add(userRequested);
 				}
 				return allUsers;
