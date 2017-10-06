@@ -12,6 +12,15 @@ public class Post{
 	private Time time;
 	
 	
+	public Post(int id, String title, String content, String author, Date date, Time time) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.author = author;
+		this.date = date;
+		this.time = time;
+	}
 	public String getTitle() {
 		return title;
 	}

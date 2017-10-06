@@ -1,8 +1,10 @@
 package Repository;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
-
+import java.util.ArrayList;
+import java.util.List;
 import model.Post;
 
 public class PostRepository extends AbstractRepository
@@ -39,6 +41,30 @@ public class PostRepository extends AbstractRepository
 		}
 	}
 	
+	public String editPost(Post post) {
+
+		Connection c = AbstractRepository.connectionToDB();
+		if (c != null) {
+			try {
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql = "UPDATE tblpost SET id="+post.getId()+",title="+post.getTitle()+",content="+post.getContent()+",author="+post.getAuthor()+",date"+post.getDate()+",time"+post.getTime()+";";
+				int rs = stmt.executeUpdate(sql);
+				if (rs != 0) {
+					return "success";
+				} else {
+					return "failed";
+				}
+			} catch (Exception e) {
+				return "SQL ERROR";
+			}
+		}
+
+		else {
+			return "Connection ERROR";
+		}
+	}
+	
 	public String deletePost(Post postToDelete)
 	{
 		Connection c = AbstractRepository.connectionToDB();
@@ -65,8 +91,8 @@ public class PostRepository extends AbstractRepository
 			return "SQL ERROR";
 		}
 	}
-	
-	public String getAll()
+
+	public Post getPost()
 	{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
@@ -74,22 +100,41 @@ public class PostRepository extends AbstractRepository
 				Statement stmt = null;
 				stmt = c.createStatement();
 				String sql="SELECT * FROM tblpost;";
-				int rs = stmt.executeUpdate(sql);
-				if (rs!=0) {
-					return "succses";
-				  } 
-				else
-				  {
-					return "failed";
-				  }
-			   }catch (Exception e){
-				   return "SQL ERROR";
+				ResultSet rs = stmt.executeQuery(sql);
+				if (rs.next()) {
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("author"),rs.getDate("date"),rs.getTime("time"));
+					return postRequested;
+				}
+			 }catch (Exception e){
+					e.printStackTrace();
+					return null;
 			   }
-			}
-
-		else
-		{
-			return "SQL ERROR";
 		}
+		return null;
+
+	}
+	
+	public List<Post> getAllPosts()
+	{
+		Connection c = AbstractRepository.connectionToDB();
+		if (c!=null){
+			try{
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql="SELECT * FROM tblpost;";
+				ResultSet rs = stmt.executeQuery(sql);
+				List<Post> allPosts = new ArrayList<>();
+				while (rs.next()) {
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("author"),rs.getDate("date"),rs.getTime("time"));
+					allPosts.add(postRequested);
+				}
+				return allPosts;
+			 }catch (Exception e){
+					e.printStackTrace();
+					return new ArrayList<Post>();
+			   }
+		}
+		return new ArrayList<Post>();
+
 	}
 }
