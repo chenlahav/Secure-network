@@ -7,7 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+import javax.servlet.http.HttpSession;
+
 import model.Authenticator;
 import model.User;
   
@@ -38,7 +39,14 @@ public class LoginController extends HttpServlet {
 		{
 			rd = request.getRequestDispatcher("/success.jsp");
 			User user = new User(username, password);
-			request.setAttribute("user", user);
+			HttpSession session = request.getSession();
+			session.setAttribute("username", user.getUsername());
+			session.setAttribute("userID", user.getId());
+			session.setAttribute("firstname", user.getFirstName());
+			session.setAttribute("lastname", user.getLastName());
+			session.setAttribute("email", user.getEmail());
+			session.setAttribute("bdate", user.getBday());
+			session.setAttribute("gender", user.getGender());
 		} 
 		else
 		{
