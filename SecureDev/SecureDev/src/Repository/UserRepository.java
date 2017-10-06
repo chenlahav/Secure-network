@@ -1,10 +1,12 @@
-	package Repository;
+package Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import Repository.AbstractRepository;
+import java.util.ArrayList;
+import java.util.List;
 
+import Repository.AbstractRepository;
 import model.User;
 
 public class UserRepository extends AbstractRepository{
@@ -45,7 +47,55 @@ public class UserRepository extends AbstractRepository{
 		}
 	}
 	
-	public User getUser(String id){
+	public String editUser(User user) {
+
+		Connection c = AbstractRepository.connectionToDB();
+		if (c != null) {
+			try {
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql = "UPDATE tblevents SET id="+user.getId()+",username="+user.getUsername()+",firstName="+user.getFirstName()+",lastName="+user.getLastName()+",email="+user.getEmail()+",birthOfDate="+user.getBday()+",gender="+user.getGender()+";";
+				int rs = stmt.executeUpdate(sql);
+				if (rs != 0) {
+					return "success";
+				} else {
+					return "failed";
+				}
+			} catch (Exception e) {
+				return "SQL ERROR";
+			}
+		}
+
+		else {
+			return "Connection ERROR";
+		}
+	}
+	
+	public String deleteUser(User user) {
+
+		Connection c = AbstractRepository.connectionToDB();
+		if (c != null) {
+			try {
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql = "DELETE FROM tblevents WHERE id="+user.getId()+";";
+				int rs = stmt.executeUpdate(sql);
+				if (rs != 0) {
+					return "success";
+				} else {
+					return "failed";
+				}
+			} catch (Exception e) {
+				return "SQL ERROR";
+			}
+		}
+
+		else {
+			return "Connection ERROR";
+		}
+	}
+	
+	public User getUserById(String id){
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
@@ -54,14 +104,7 @@ public class UserRepository extends AbstractRepository{
 				String sql="SELECT * FROM tblusers WHERE id = "+id+";";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					User userRequested = null;
-					userRequested.setId(id);
-					userRequested.setUsername(rs.getString("username"));
-					userRequested.setFirstName(rs.getString("firstName"));
-					userRequested.setLastName(rs.getString("lastName"));
-					userRequested.setEmail(rs.getString("email"));
-					userRequested.setBday(rs.getString("birthOfDate"));
-					userRequested.setGender(rs.getString("gender"));
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
 					return userRequested;
 				  } 
 				else
@@ -72,12 +115,32 @@ public class UserRepository extends AbstractRepository{
 					e.printStackTrace();
 					return null;
 			   }
-			}
-
-		else
-		{
-			return null;
 		}
+		return null;
+	}
+	
+	public User getUserByUsername(String username){
+		Connection c = AbstractRepository.connectionToDB();
+		if (c!=null){
+			try{
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql="SELECT * FROM tblusers WHERE username = "+username+";";
+				ResultSet rs = stmt.executeQuery(sql);
+				if (rs.next()) {
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
+					return userRequested;
+				  } 
+				else
+				  {
+					return null;
+				  }
+			   }catch (Exception e){
+					e.printStackTrace();
+					return null;
+			   }
+		}
+		return null;
 	}
 	
 	public String userAuthenticator(User user){
@@ -99,13 +162,29 @@ public class UserRepository extends AbstractRepository{
 					e.printStackTrace();
 					return "SQL ERROR";
 			   }
-			}
-
-		else
-		{
-			return null;
 		}
+		return null;
 	}
 	
-	
+	public List<User> getAllUsers(String id){
+		Connection c = AbstractRepository.connectionToDB();
+		if (c!=null){
+			try{
+				Statement stmt = null;
+				stmt = c.createStatement();
+				String sql="SELECT * FROM tblusers;";
+				ResultSet rs = stmt.executeQuery(sql);
+				List<User> allUsers = new ArrayList<>();
+				while (rs.next()) {
+					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getDate("birthOfDate"), rs.getString("gender"));
+					allUsers.add(userRequested);
+				}
+				return allUsers;
+			 }catch (Exception e){
+					e.printStackTrace();
+					return new ArrayList<User>();
+			   }
+			}
+		return new ArrayList<User>();	
+	}
 }
