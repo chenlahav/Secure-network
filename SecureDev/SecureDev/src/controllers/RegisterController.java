@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Repository.UserRepository;
 import model.User;
- 
-import sun.text.normalizer.ICUBinary.Authenticate;
 
 public class RegisterController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -28,7 +26,7 @@ public class RegisterController extends HttpServlet{
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		String bdate = request.getParameter("bdate");
+		String bdate = request.getParameter("email");
 		String gender = request.getParameter("gender");
 		User newUser= new User(username,password,id,email,first_name,last_name,bdate,gender);
 		UserRepository rep = new UserRepository();

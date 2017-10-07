@@ -38,7 +38,6 @@ public class LoginController extends HttpServlet {
 		
 		if (result.equals("success")) 
 		{
-			rd = request.getRequestDispatcher("/Profile.jsp");
 			UserRepository ur = new UserRepository();
 			User user = ur.getUserByUsername(username);
 			HttpSession session = request.getSession();
@@ -49,6 +48,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("email", user.getEmail());
 			session.setAttribute("bdate", user.getBday());
 			session.setAttribute("gender", user.getGender());
+			rd = request.getRequestDispatcher("/Profile.jsp");
 		} 
 		else
 		{

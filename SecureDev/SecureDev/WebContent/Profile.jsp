@@ -17,9 +17,9 @@
     <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
     <hr>
     <img alt="pic" src="‪/SecureDev/WebContent/Images/hacking-self-defence-750x400.jpg‬">
-    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"><label>Name:</label><%out.print(request.getSession().getAttribute("name"));%></i> </p>
-    <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
-    <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme">${sessionScope.firstname} ${sessionScope.lastname}</i> </p>
+    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>${sessionScope.email}</p>
+    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${sessionScope.bdate}</p>
     </div>
 </div>
 </form>
