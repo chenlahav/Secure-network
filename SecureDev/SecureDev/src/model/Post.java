@@ -8,11 +8,11 @@ public class Post{
 	private String title;
 	private String content;
 	private String author;
-	private Date date;
-	private Time time;
+	private String date;
+	private String time;
 	
 	
-	public Post(int id, String title, String content, String author, Date date, Time time) {
+	public Post(int id, String title, String content, String author, String date, String time) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -39,16 +39,16 @@ public class Post{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	public Time getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Time time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public int getId() {

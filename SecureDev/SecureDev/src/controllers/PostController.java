@@ -32,7 +32,8 @@ public class PostController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		PostRepository postrepository = new PostRepository();
 		//List<Post> result = postrepository.getAllPosts();
-		Post result = postrepository.getPost(1);
+		//Post result = postrepository.getPost(2);
+		List<Post> result = postrepository.getAllPosts();
 		
 		//request.setAttribute("allposts", "hello world");
 		RequestDispatcher rd = null;

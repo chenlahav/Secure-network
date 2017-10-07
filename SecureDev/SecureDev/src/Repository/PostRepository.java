@@ -103,8 +103,8 @@ public class PostRepository extends AbstractRepository
 				String sql="SELECT * FROM tblpost WHERE id="+id+";";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					//Time timeParse = (Time) new SimpleTimeZone("HH:mm:ss").parse(rs.getString("time"));
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getDate("date"),rs.getTime("time"));
+					//Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getDate("date"),rs.getString("time"));
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getString("date"),"10:00");
 					return postRequested;
 				}
 			 }catch (Exception e){
@@ -127,7 +127,7 @@ public class PostRepository extends AbstractRepository
 				ResultSet rs = stmt.executeQuery(sql);
 				List<Post> allPosts = new ArrayList<>();
 				while (rs.next()) {
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("author"),rs.getDate("date"),rs.getTime("time"));
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getString("date"),rs.getString("time"));
 					allPosts.add(postRequested);
 				}
 				return allPosts;
