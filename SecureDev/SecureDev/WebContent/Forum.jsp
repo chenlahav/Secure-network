@@ -6,21 +6,14 @@
     pageEncoding="ISO-8859-1"%>
     
     <%
-	List<Post> allpost = (List<Post>) request.getAttribute("allpost");
-%>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<body>
-<form action="PostController" method="post">
-
-for (Post post : allpost) {
-				out.print(post.gettitle());
+	List<Post> posts = (List<Post>) request.getAttribute("allposts");
+	%>
+<form action="/forum" method="get">
+	<div>
+		<%
+			for(Post post: posts){
+				out.print("<div>" + post.getTitle() + "</div>");
 			}
-			
- <input type="submit" value="get posts">
+		%>
+	</div>
 </form>
-
-
-</body>
-</html>

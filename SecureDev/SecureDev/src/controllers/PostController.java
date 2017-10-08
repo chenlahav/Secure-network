@@ -53,10 +53,12 @@ public class PostController extends HttpServlet {
 		
 		
 	}
-
-	protected void doGet(HttpServletRequest request,HttpServletResponse response)
-	{
-		
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		PostRepository pr = new PostRepository();
+		List<Post> allposts = pr.getAllPosts();
+		request.setAttribute("allposts", allposts);
+		request.getRequestDispatcher("/Forum.jsp").forward(request, response);
 	}
- 
 }

@@ -30,6 +30,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>PostController</servlet-name>
-    <url-pattern>/PostController</url-pattern>
+    <url-pattern>/Forum</url-pattern>
   </servlet-mapping>
 </web-app>

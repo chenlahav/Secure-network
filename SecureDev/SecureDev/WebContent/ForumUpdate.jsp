@@ -65,7 +65,6 @@ function inputV(){
 <%
 
 Post p = new Post(1,"3","3","4","5","5");
-out.print(p.returnInt());
 out.print(p.getAuthor());
 PostRepository j = new PostRepository();
 out.print(j.getAllPosts());
