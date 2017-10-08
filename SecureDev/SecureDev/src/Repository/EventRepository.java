@@ -1,6 +1,7 @@
 package Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -24,13 +25,19 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "INSERT INTO tblevents (eventname, location, date, time, description, creator) VALUES ('"
-						+ newEvent.getEvent_name() + "','" + newEvent.getLocation() + "','" + newEvent.getDate() + "','"
-						+ newEvent.getTime() + "','" + newEvent.getDescription() + "','" + newEvent.getCreator()
-						+ "');";
-				int rs = stmt.executeUpdate(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "INSERT INTO tblevents (eventname, location, date, time, description, creator) VALUES (?,?,?,?,?,?);";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, newEvent.getEvent_name());
+				stmt.setString(2, newEvent.getLocation());
+				stmt.setString(3, newEvent.getDate());
+				stmt.setString(4, newEvent.getTime());
+				stmt.setString(5, newEvent.getDescription());
+				stmt.setString(6, newEvent.getCreator());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -51,10 +58,20 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "UPDATE tblevents SET eventname="+event.getEvent_name()+", location="+event.getLocation()+", date="+event.getDate()+", time="+event.getTime()+", description="+event.getDescription()+"WHERE id="+event.getId()+";";
-				int rs = stmt.executeUpdate(sql);
+				
+				
+				PreparedStatement stmt ;
+				String sql= "UPDATE tblevents SET eventname=?, location=?, date=?, time=?, description=? WHERE id=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, event.getEvent_name());
+				stmt.setString(2, event.getLocation());
+				stmt.setString(3, event.getDate());
+				stmt.setString(4, event.getTime());
+				stmt.setString(5, event.getDescription());
+				stmt.setInt(6, event.getId());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -75,10 +92,14 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "DELETE FROM tblevents WHERE id="+event.getId()+";";
-				int rs = stmt.executeUpdate(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "DELETE FROM tblevents WHERE id=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, event.getId());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -98,12 +119,16 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="SELECT * FROM tblevents WHERE id = "+id+";";
-				ResultSet rs = stmt.executeQuery(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "SELECT * FROM tblevents WHERE id = ?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, id);
+				
+				ResultSet rs = stmt.executeQuery();
+				
 				if (rs.next()) {
-					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getDate("date"), rs.getTime("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
 					return eventRequested;
 				  } 
 			   }catch (Exception e){
@@ -124,7 +149,7 @@ public class EventRepository extends AbstractRepository {
 				ResultSet rs = stmt.executeQuery(sql);
 				List<Event> allEvents = new ArrayList<>();
 				while (rs.next()) {
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getDate("date"), rs.getTime("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;
@@ -146,7 +171,7 @@ public class EventRepository extends AbstractRepository {
 				ResultSet rs = stmt.executeQuery(sql);
 				List<Event> allEvents = new ArrayList<>();
 				while (rs.next()) {
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getDate("date"), rs.getTime("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;

@@ -1,6 +1,7 @@
 package Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -24,10 +25,20 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES ('"+newUser.getId()+"','"+newUser.getUsername()+"','"+newUser.getPassword()+"','"+ newUser.getFirstName()+"','"+newUser.getLastName()+"','"+newUser.getEmail()+"','"+newUser.getBday()+"','"+newUser.getGender()+"');";
-				int rs = stmt.executeUpdate(sql);
+				PreparedStatement stmt ;
+				String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES (?,?,?,?,?,?,?,?);";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, newUser.getId());
+				stmt.setString(2, newUser.getUsername());
+				stmt.setString(3, newUser.getPassword());
+				stmt.setString(4, newUser.getFirstName());
+				stmt.setString(5, newUser.getLastName());
+				stmt.setString(6,newUser.getEmail());
+				stmt.setString(7, newUser.getBday());
+				stmt.setString(8,newUser.getGender());
+				
+				
+				int rs = stmt.executeUpdate();
 				if (rs!=0) {
 					return "success";
 				  } 
@@ -52,10 +63,21 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "UPDATE tblevents SET id="+user.getId()+",username="+user.getUsername()+",firstName="+user.getFirstName()+",lastName="+user.getLastName()+",email="+user.getEmail()+",birthOfDate="+user.getBday()+",gender="+user.getGender()+";";
-				int rs = stmt.executeUpdate(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "UPDATE tblevents SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, user.getId());
+				stmt.setString(2, user.getUsername());
+				stmt.setString(3, user.getPassword());
+				stmt.setString(4, user.getFirstName());
+				stmt.setString(5, user.getLastName());
+				stmt.setString(6, user.getEmail());
+				stmt.setString(7, user.getBday());
+				stmt.setString(8, user.getGender());
+					
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -76,10 +98,12 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "DELETE FROM tblevents WHERE id="+user.getId()+";";
-				int rs = stmt.executeUpdate(sql);
+				PreparedStatement stmt ;
+				String sql= "DELETE FROM tblevents WHERE id=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, user.getId());
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -99,10 +123,12 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="SELECT * FROM tblusers WHERE id = "+id+";";
-				ResultSet rs = stmt.executeQuery(sql);
+				PreparedStatement stmt ;
+				String sql= "SELECT * FROM tblusers WHERE id =?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, id);	
+				ResultSet rs = stmt.executeQuery();
+				
 				if (rs.next()) {
 					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
 					return userRequested;
@@ -123,10 +149,12 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="SELECT * FROM tblusers WHERE username = '"+username+"';";
-				ResultSet rs = stmt.executeQuery(sql);
+				PreparedStatement stmt ;
+				String sql= "SELECT * FROM tblusers WHERE username = ?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, username);	
+				ResultSet rs = stmt.executeQuery();
+				
 				if (rs.next()) {
 					User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
 					return userRequested;
@@ -147,10 +175,14 @@ public class UserRepository extends AbstractRepository{
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="select * from tblusers where username='" + user.getUsername() + "' and password='" + user.getPassword() + "';";
-				ResultSet rs = stmt.executeQuery(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "select * from tblusers where username=? and password=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, user.getUsername());
+				stmt.setString(2, user.getPassword());
+				ResultSet rs = stmt.executeQuery();
+				
 				if (rs.next()) {
 					return "success";
 				  } 
@@ -166,7 +198,7 @@ public class UserRepository extends AbstractRepository{
 		return null;
 	}
 	
-	public List<User> getAllUsers(String id){
+	public List<User> getAllUsers(){
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{

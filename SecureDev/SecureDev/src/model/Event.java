@@ -6,13 +6,13 @@ import java.sql.Time;
 public class Event {
 	private int id;
 	private String event_name;
-	private Date date;
-	private Time time;
+	private String date;
+	private String time;
 	private String description;
 	private String location;
 	private String creator;
 	
-	public Event(int id, String event_name, Date date, Time time, String description, String location, String creator) {
+	public Event(int id, String event_name, String date, String time, String description, String location, String creator) {
 		super();
 		this.id = id;
 		this.event_name = event_name;
@@ -39,19 +39,19 @@ public class Event {
 		this.event_name = event_name;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public Time getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
