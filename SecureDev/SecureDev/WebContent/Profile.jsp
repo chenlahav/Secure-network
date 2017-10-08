@@ -8,18 +8,14 @@
 </head>
 
 <body>
+<jsp:include page="Header.jsp" />
+<br>
+<br>
 <form>
 <!-- Profile -->
-	
-  <div class="w3-card-2 w3-round w3-white">
-    <div class="w3-container">
-    <h4 class="w3-center">${requestScope['user'].username}</h4>
-    <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" alt="Avatar"></p>
-    <hr>
-    <img alt="pic" src="‪/SecureDev/WebContent/Images/hacking-self-defence-750x400.jpg‬">
-    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme">${sessionScope.firstname} ${sessionScope.lastname}</i> </p>
-    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>${sessionScope.email}</p>
-    <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${sessionScope.bdate}</p>
+    <p><i class="">Name: ${sessionScope.firstname} ${sessionScope.lastname}</i> </p>
+    <p><i class=""></i>Email: ${sessionScope.email}</p>
+    <p><i class=""></i>Birth Date: ${sessionScope.bdate}</p>
     </div>
 </div>
 </form>
