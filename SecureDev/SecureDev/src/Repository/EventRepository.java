@@ -119,13 +119,13 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				
 				PreparedStatement stmt ;
 				String sql= "SELECT * FROM tblevents WHERE id = ?;";
 				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				stmt.setInt(1, id);
 				
 				ResultSet rs = stmt.executeQuery();
+				
 				
 				if (rs.next()) {
 					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
@@ -165,10 +165,12 @@ public class EventRepository extends AbstractRepository {
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="SELECT * FROM tblevents WHERE creatorid = "+id+";";
-				ResultSet rs = stmt.executeQuery(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "SELECT * FROM tblevents WHERE creatorid =?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, id);
+				ResultSet rs = stmt.executeQuery();
 				List<Event> allEvents = new ArrayList<>();
 				while (rs.next()) {
 					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
