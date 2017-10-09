@@ -24,7 +24,7 @@ public class PostRepository extends AbstractRepository
 			try{
 				
 				PreparedStatement stmt ;
-				String sql= "INSERT INTO tblpost (title,content,author,date,time) VALUES (?,?,?,?,?);";
+				String sql= "INSERT INTO tblpost (title,content,authorid,date,time) VALUES (?,?,?,?,?);";
 				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				stmt.setString(1, newPost.getTitle());
 				stmt.setString(2, newPost.getContent());
