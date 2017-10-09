@@ -14,17 +14,43 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <br>
 <br>
 <form id="postForm" class="postForm" action="Forum" method="post">
-	<input name = "title" class="newPost" type="text" placeholder="Please add title">
-	<input name = "content" class="newPost" type="text" placeholder="Please add your post">
-	<input class="submitPost" type="submit" value="submit">
+	<div class="form-group">
+      <label for="email">Event Name:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+	<div class="form-group">
+      <label for="email">Date:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+	<div class="form-group">
+      <label for="email">Event Hour:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+	<div class="form-group">
+      <label for="email">Description:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+	<div class="form-group">
+      <label for="email">Location:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+	<div class="form-group">
+      <label for="email">Email for contact:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
 </form>
 <br>
 <br>
