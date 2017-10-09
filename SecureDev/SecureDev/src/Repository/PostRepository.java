@@ -1,6 +1,7 @@
 package Repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -21,10 +22,19 @@ public class PostRepository extends AbstractRepository
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="INSERT INTO tblpost (title,content,author,date,time) VALUES ('"+newPost.getTitle()+"','"+newPost.getContent()+"','"+ newPost.getAuthor().getId()+"','"+newPost.getDate()+"','"+newPost.getTime()+"');";
-				int rs = stmt.executeUpdate(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "INSERT INTO tblpost (title,content,author,date,time) VALUES (?,?,?,?,?);";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, newPost.getTitle());
+				stmt.setString(2, newPost.getContent());
+				stmt.setString(3, newPost.getAuthor().getId());
+				stmt.setString(4, newPost.getDate());
+				stmt.setString(5, newPost.getTime());
+				stmt.setString(6, newPost.getTime());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs!=0) {
 					return "succses";
 				  } 
@@ -48,10 +58,16 @@ public class PostRepository extends AbstractRepository
 		Connection c = AbstractRepository.connectionToDB();
 		if (c != null) {
 			try {
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "UPDATE tblpost SET title="+post.getTitle()+",content="+post.getContent()+",date"+post.getDate()+",time"+post.getTime()+";";
-				int rs = stmt.executeUpdate(sql);
+				PreparedStatement stmt ;
+				String sql= "UPDATE tblpost SET title=?,content=?,date=?,time=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, post.getTitle());
+				stmt.setString(2, post.getContent());
+				stmt.setString(3, post.getDate());
+				stmt.setString(4, post.getTime());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs != 0) {
 					return "success";
 				} else {
@@ -72,10 +88,17 @@ public class PostRepository extends AbstractRepository
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql = "DELETE FROM tblpost WHERE id="+postToDelete.getId()+";";
-				int rs = stmt.executeUpdate(sql);
+				
+				PreparedStatement stmt ;
+				String sql= "UPDATE tblpost SET title=?,content=?,date=?,time=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setString(1, postToDelete.getTitle());
+				stmt.setString(2, postToDelete.getContent());
+				stmt.setString(3, postToDelete.getDate());
+				stmt.setString(4, postToDelete.getTime());
+				
+				int rs = stmt.executeUpdate();
+				
 				if (rs!=0) {
 					return "succses";
 				  } 
@@ -99,10 +122,12 @@ public class PostRepository extends AbstractRepository
 		Connection c = AbstractRepository.connectionToDB();
 		if (c!=null){
 			try{
-				Statement stmt = null;
-				stmt = c.createStatement();
-				String sql="SELECT * FROM tblpost WHERE id="+id+";";
-				ResultSet rs = stmt.executeQuery(sql);
+				PreparedStatement stmt ;
+				String sql="SELECT * FROM tblpost WHERE id=?;";
+				stmt = c.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, id);
+				
+				ResultSet rs = stmt.executeQuery();
 				if (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User author = ur.getUserById(rs.getString("authorid"));
