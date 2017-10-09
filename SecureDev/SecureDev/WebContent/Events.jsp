@@ -32,11 +32,11 @@
     </div>
 	<div class="form-group">
       <label for="email">Date:</label>
-      <input type="date" class="form-control" id="event_name" placeholder="Enter date" name="event_name">
+      <input type="date" class="form-control" id="date" placeholder="Enter date" name="date">
     </div>
 	<div class="form-group">
       <label for="email">Event Hour:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter time" name="email">
+      <input type="email" class="form-control" id="time" placeholder="Enter time" name="time">
     </div>
 	<div class="form-group">
       <label for="email">Description:</label>
