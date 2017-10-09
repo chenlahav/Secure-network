@@ -9,9 +9,8 @@ public class Event {
 	private String location;
 	private User creator;
 	
-	public Event(int id, String event_name, String date, String time, String description, String location, User creator) {
+	public Event(String event_name, String date, String time, String description, String location, User creator) {
 		super();
-		this.id = id;
 		this.event_name = event_name;
 		this.date = date;
 		this.time = time;

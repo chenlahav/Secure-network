@@ -128,7 +128,8 @@ public class EventRepository extends AbstractRepository {
 				if (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User creator = ur.getUserById(rs.getString("creatorid"));
-					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					Event eventRequested = new Event(rs.getString("eventname"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					eventRequested.setId(id);
 					return eventRequested;
 				  } 
 			   }catch (Exception e){
@@ -151,7 +152,8 @@ public class EventRepository extends AbstractRepository {
 				while (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User creator = ur.getUserById(rs.getString("creatorid"));
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("eventname"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					Event eventRequested = new Event(rs.getString("eventname"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					eventRequested.setId(rs.getInt("id"));
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;
@@ -177,7 +179,8 @@ public class EventRepository extends AbstractRepository {
 				while (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User creator = ur.getUserById(rs.getString("creatorid"));
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					Event eventRequested = new Event(rs.getString("eventname"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+					eventRequested.setId(rs.getInt("id"));
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;
