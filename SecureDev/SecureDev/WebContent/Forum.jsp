@@ -12,61 +12,95 @@
 			String username = session.getAttribute("username").toString();
 		}
 %>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
-<title>Insert title here</title>
-<link href="all.css" rel="stylesheet">
+<title>Forum Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body onload="openW()">
+<body>
 <jsp:include page="Header.jsp" />
-<br>
-<br>
-<p class="introForum">Hello ${sessionScope.firstname},
-<br>
-Below you can find security related questions and posts. <br>
-We invite you to add posts as you wish. <br>
-Please fill free to comment and answer on others posts.
-</p>
-<br>
-<br>
-<div class="newPostHead">
-<button class="newP" onclick="openW()">Add Post</button>
-<br>
-<br>
-<form id="postForm" class="postForm" action="Forum" method="post">
-	<input name = "title" class="newPost" type="text" placeholder="Please add title">
-	<input name = "content" class="newPost" type="text" placeholder="Please add your post">
-	<input class="submitPost" type="submit" value="submit">
-</form>
-<br>
-<br>
-</div>
+<div class="container text-center">    
+  <div class="row">
+    <div class="col-sm-3 well">
+      <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p><strong>Hi! ${sessionScope.firstname}</strong></p>
+        People are looking for your questions and answers!
+      </div>
+    </div>
+    <div class="col-sm-7">
+     <form id="postForm" class="postForm" action="Forum" method="post">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default text-left">
+            <div class="panel-body">
+			<input name = "title" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add the Post title"><br>
+			<input contenteditable="true" name = "content" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add your post"><br>
+			<input class="submitPost btn btn-default btn-sm" type="submit" value="submit">    
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
 <%
-	for (Post p: posts){
-		out.print("<table class=\"postsT\">"+"<tr>"+
-		"<td class=\"postTitle\">"+ p.getTitle()+"</td>"+"</tr>"+
-		"<tr class=\"rowP\">"+"<td >"+ "By:  "+ p.getAuthor().getUsername()+"</td>"+"</tr>"+
-		"<tr class=\"rowP\">"+"<td>"+ p.getContent()+"</td>"+"</tr>" + 
-		"<tr>"+"<td class=\"pTime\">"+p.getTime()+"</td>"+"</tr>"+
-		"<tr class=\"rowP commentP\">"+"<td class=\"commentP\">"+"<form class=\"popuptext\" id=\"addC\" action=\"\" onsubmit=\"return inputV()\">"
-		+"<input class=\"placeholderC\"type=\"text\" placeholder=\"Please add your comment here and press submit\">"+
-		"<input class=\"submith\" type=\"submit\" onclick=\"inputV()\" value=\"Submit\">"+
-		"</form>"+"</td>"+"</tr>"+
-		"</table>"+"<br>"+"<br>");
-	}
+for (Post p: posts){
+	out.print("<div class=\"row\">"+
+	"<div class=\"col-sm-3\">"+
+	"<div class=\"well\">"+
+	"<p>"+p.getAuthor().getUsername()+"</p>"+
+	"<p>"+p.getDate()+"</p>"+
+	"<p>"+p.getTime()+"</p>"+
+	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
+	"</div>"+
+	"</div>"+
+	"<div class=\"col-sm-9\">"+
+    "<div class=\"well\">"+
+    "<p>"+p.getTitle()+"</p>"+
+    "<p>"+p.getContent()+"</p>"+
+    "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
+    "<div class=\"row\">"+
+    "<div class=\"col-sm-12\">"+
+    "<div class=\"panel panel-default text-left\">"+
+    "<div class=\"panel-body\">"+
+	"<input name = \"title\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
+	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\">"+    
+    "</div>"+
+	"</div>"+
+    "</div>"+
+	"</div>"+
+    "</form>"+
+    "</div>"+
+    "</div>"+
+	"</div>");
+}
 
 %>
+ </div>
+    <div class="col-sm-2 well">
+      <div class="thumbnail">
+        <p>Upcoming Events:</p>
+        <img src="paris.jpg" alt="Paris" width="400" height="300">
+        <p><strong>Paris</strong></p>
+        <p>Fri. 27 November 2015</p>
+        <button class="btn btn-primary">Info</button>
+      </div>      
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 
 </body>
-<script type="text/javascript">
-function openW(){
-	var x = document.getElementById("postForm");
-	if (x.style.display==="none")
-		x.style.display="block";
-	 else {
-	        x.style.display = "none";
-	    }
-}
-</script>
 </html>
