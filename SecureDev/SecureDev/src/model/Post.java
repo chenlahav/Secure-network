@@ -9,9 +9,8 @@ public class Post{
 	private String time;
 	
 	
-	public Post(int id, String title, String content, User author, String date, String time) {
+	public Post(String title, String content, User author, String date, String time) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.author = author;
@@ -48,6 +47,11 @@ public class Post{
 	public void setTime(String time) {
 		this.time = time;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}

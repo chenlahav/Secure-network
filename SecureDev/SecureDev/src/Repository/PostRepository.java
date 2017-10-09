@@ -23,7 +23,7 @@ public class PostRepository extends AbstractRepository
 			try{
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql="INSERT INTO tblpost (id,title,content,author,date,time) VALUES ('"+newPost.getId()+"','"+newPost.getTitle()+"','"+newPost.getContent()+"','"+ newPost.getAuthor().getId()+"','"+newPost.getDate()+"','"+newPost.getTime()+"');";
+				String sql="INSERT INTO tblpost (title,content,author,date,time) VALUES ('"+newPost.getTitle()+"','"+newPost.getContent()+"','"+ newPost.getAuthor().getId()+"','"+newPost.getDate()+"','"+newPost.getTime()+"');";
 				int rs = stmt.executeUpdate(sql);
 				if (rs!=0) {
 					return "succses";
@@ -50,7 +50,7 @@ public class PostRepository extends AbstractRepository
 			try {
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql = "UPDATE tblpost SET id="+post.getId()+",title="+post.getTitle()+",content="+post.getContent()+",author="+post.getAuthor().getId()+",date"+post.getDate()+",time"+post.getTime()+";";
+				String sql = "UPDATE tblpost SET title="+post.getTitle()+",content="+post.getContent()+",date"+post.getDate()+",time"+post.getTime()+";";
 				int rs = stmt.executeUpdate(sql);
 				if (rs != 0) {
 					return "success";
@@ -106,7 +106,8 @@ public class PostRepository extends AbstractRepository
 				if (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User author = ur.getUserById(rs.getString("authorid"));
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
+					Post postRequested = new Post(rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
+					postRequested.setId(rs.getInt("id"));
 					return postRequested;
 				}
 			 }catch (Exception e){
@@ -131,7 +132,8 @@ public class PostRepository extends AbstractRepository
 				while (rs.next()) {
 					UserRepository ur = new UserRepository();
 					User author = ur.getUserById(rs.getString("authorid"));
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
+					Post postRequested = new Post(rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
+					postRequested.setId(rs.getInt("id"));
 					allPosts.add(postRequested);
 				}
 				return allPosts;
