@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=windows-1255"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="windows-1255"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -34,9 +34,10 @@ Please fill free to comment and answer on others posts.
 <button class="newP" onclick="openW()">Add Post</button>
 <br>
 <br>
-<form id="postForm" class="postForm" action="" method="" onsubmit="return inputV()">
-	<input class="newPost" type="text" placeholder="Please add your post">
-	<input class="submitPost" type="submit" onclick="inputV()" value="submit">
+<form id="postForm" class="postForm" action="Forum" method="post">
+	<input name = "title" class="newPost" type="text" placeholder="Please add title">
+	<input name = "content" class="newPost" type="text" placeholder="Please add your post">
+	<input class="submitPost" type="submit" value="submit">
 </form>
 <br>
 <br>

@@ -1,16 +1,19 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 import model.Post;
+import model.User;
 import Repository.PostRepository;
+import Repository.UserRepository;
  
 
 public class PostController extends HttpServlet {
@@ -20,24 +23,30 @@ public class PostController extends HttpServlet {
 		super();
 	}
 	
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		PostRepository postrepository = new PostRepository();
-		List<Post> result = postrepository.getAllPosts();
-		RequestDispatcher rd = null;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		UserRepository ur = new UserRepository();
+		String title= request.getParameter("title");
+		String content = request.getParameter("content");
+		User author = ur.getUserById((String)request.getSession().getAttribute("userID"));
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		String strnow = dtf.format(now);
+		String date = strnow.substring(0, strnow.indexOf(" "));
+		String time = strnow.substring(strnow.indexOf(" ")+1);
+		
+		Post newPost = new Post(title, content, author, date, time);
  		
-		if (!result.equals(null)) 
-		{
-			rd = request.getRequestDispatcher("/Forum.jsp");
-			request.setAttribute("allpost", result);
-		} 
-		else
-		{
-			rd = request.getRequestDispatcher("/error.jsp");
+		PostRepository pr = new PostRepository();
+		String result = pr.addPost(newPost);
+		
+		if (result.equals("success")) {
+			doGet(request, response);
+		}else{
+			request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("error", "error while adding post");
 		}
-		
-		rd.forward(request, response);
-		
 		
 	}
 	
