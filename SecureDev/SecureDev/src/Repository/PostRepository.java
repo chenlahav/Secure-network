@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Post;
+import model.User;
 
 public class PostRepository extends AbstractRepository
 {
@@ -22,7 +23,7 @@ public class PostRepository extends AbstractRepository
 			try{
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql="INSERT INTO tblpost (id,title,content,author,date,time) VALUES ('"+newPost.getId()+"','"+newPost.getTitle()+"','"+newPost.getContent()+"','"+ newPost.getAuthor()+"','"+newPost.getDate()+"','"+newPost.getTime()+"');";
+				String sql="INSERT INTO tblpost (id,title,content,author,date,time) VALUES ('"+newPost.getId()+"','"+newPost.getTitle()+"','"+newPost.getContent()+"','"+ newPost.getAuthor().getId()+"','"+newPost.getDate()+"','"+newPost.getTime()+"');";
 				int rs = stmt.executeUpdate(sql);
 				if (rs!=0) {
 					return "succses";
@@ -49,7 +50,7 @@ public class PostRepository extends AbstractRepository
 			try {
 				Statement stmt = null;
 				stmt = c.createStatement();
-				String sql = "UPDATE tblpost SET id="+post.getId()+",title="+post.getTitle()+",content="+post.getContent()+",author="+post.getAuthor()+",date"+post.getDate()+",time"+post.getTime()+";";
+				String sql = "UPDATE tblpost SET id="+post.getId()+",title="+post.getTitle()+",content="+post.getContent()+",author="+post.getAuthor().getId()+",date"+post.getDate()+",time"+post.getTime()+";";
 				int rs = stmt.executeUpdate(sql);
 				if (rs != 0) {
 					return "success";
@@ -103,8 +104,9 @@ public class PostRepository extends AbstractRepository
 				String sql="SELECT * FROM tblpost WHERE id="+id+";";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
-					//Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getDate("date"),rs.getString("time"));
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getString("date"),"10:00");
+					UserRepository ur = new UserRepository();
+					User author = ur.getUserById(rs.getString("authorid"));
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
 					return postRequested;
 				}
 			 }catch (Exception e){
@@ -127,7 +129,9 @@ public class PostRepository extends AbstractRepository
 				ResultSet rs = stmt.executeQuery(sql);
 				List<Post> allPosts = new ArrayList<>();
 				while (rs.next()) {
-					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),rs.getString("authorid"),rs.getString("date"),rs.getString("time"));
+					UserRepository ur = new UserRepository();
+					User author = ur.getUserById(rs.getString("authorid"));
+					Post postRequested = new Post(rs.getInt("id"),rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
 					allPosts.add(postRequested);
 				}
 				return allPosts;

@@ -15,7 +15,7 @@
 		out.print("<table>"+"<tr>"+
 		"<td h3>"+ p.getTitle()+"</td>"+
 		"<td>"+p.getTime()+"</td>"+
-		"<td>"+ "By:"+ p.getAuthor()+"</td>"+
+		"<td>"+ "By:"+ p.getAuthor().getUsername()+"</td>"+
 		"<td>"+ p.getContent()+"</td>"+
 		"</tr>" +"</table>");
 	}

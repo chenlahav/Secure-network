@@ -1,8 +1,5 @@
 package model;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class Event {
 	private int id;
 	private String event_name;
@@ -10,9 +7,9 @@ public class Event {
 	private String time;
 	private String description;
 	private String location;
-	private String creator;
+	private User creator;
 	
-	public Event(int id, String event_name, String date, String time, String description, String location, String creator) {
+	public Event(int id, String event_name, String date, String time, String description, String location, User creator) {
 		super();
 		this.id = id;
 		this.event_name = event_name;
@@ -63,11 +60,11 @@ public class Event {
 		this.description = description;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(String creator) {
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 

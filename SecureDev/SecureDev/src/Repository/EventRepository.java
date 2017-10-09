@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Event;
+import model.User;
 
 public class EventRepository extends AbstractRepository {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4712130067123623444L;
 
 	public EventRepository() {
@@ -34,7 +32,7 @@ public class EventRepository extends AbstractRepository {
 				stmt.setString(3, newEvent.getDate());
 				stmt.setString(4, newEvent.getTime());
 				stmt.setString(5, newEvent.getDescription());
-				stmt.setString(6, newEvent.getCreator());
+				stmt.setString(6, newEvent.getCreator().getId());
 				
 				int rs = stmt.executeUpdate();
 				
@@ -128,7 +126,9 @@ public class EventRepository extends AbstractRepository {
 				
 				
 				if (rs.next()) {
-					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					UserRepository ur = new UserRepository();
+					User creator = ur.getUserById(rs.getString("creatorid"));
+					Event eventRequested = new Event(id, rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
 					return eventRequested;
 				  } 
 			   }catch (Exception e){
@@ -149,7 +149,9 @@ public class EventRepository extends AbstractRepository {
 				ResultSet rs = stmt.executeQuery(sql);
 				List<Event> allEvents = new ArrayList<>();
 				while (rs.next()) {
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					UserRepository ur = new UserRepository();
+					User creator = ur.getUserById(rs.getString("creatorid"));
+					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;
@@ -173,7 +175,9 @@ public class EventRepository extends AbstractRepository {
 				ResultSet rs = stmt.executeQuery();
 				List<Event> allEvents = new ArrayList<>();
 				while (rs.next()) {
-					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), rs.getString("creator"));
+					UserRepository ur = new UserRepository();
+					User creator = ur.getUserById(rs.getString("creatorid"));
+					Event eventRequested = new Event(rs.getInt("id"), rs.getString("event_name"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
 					allEvents.add(eventRequested);
 				  } 
 				return allEvents;

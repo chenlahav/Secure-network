@@ -1,7 +1,5 @@
 package model;
 
-import java.sql.Date;
-
 /*
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class that defines the user object.

@@ -1,18 +1,15 @@
 package model;
 
-import java.sql.*;
-
-
 public class Post{
 	private int id;
 	private String title;
 	private String content;
-	private String author;
+	private User author;
 	private String date;
 	private String time;
 	
 	
-	public Post(int id, String title, String content, String author, String date, String time) {
+	public Post(int id, String title, String content, User author, String date, String time) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -33,10 +30,10 @@ public class Post{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 	public String getDate() {
