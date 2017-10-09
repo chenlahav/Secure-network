@@ -14,7 +14,7 @@
 
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>Events</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,27 +28,23 @@
 <form id="postForm" class="postForm" action="Forum" method="post">
 	<div class="form-group">
       <label for="email">Event Name:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="text" class="form-control" id="event_name" placeholder="Enter name" name="event_name">
     </div>
 	<div class="form-group">
       <label for="email">Date:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="date" class="form-control" id="event_name" placeholder="Enter date" name="event_name">
     </div>
 	<div class="form-group">
       <label for="email">Event Hour:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="email" class="form-control" id="email" placeholder="Enter time" name="email">
     </div>
 	<div class="form-group">
       <label for="email">Description:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="text" class="form-control" id="description" placeholder="Enter description" name="description">
     </div>
 	<div class="form-group">
       <label for="email">Location:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-    </div>
-	<div class="form-group">
-      <label for="email">Email for contact:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+      <input type="text" class="form-control" id="location" placeholder="Enter location" name="location">
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
