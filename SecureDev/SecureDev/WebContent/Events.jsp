@@ -36,7 +36,7 @@
     </div>
 	<div class="form-group">
       <label for="email">Event Hour:</label>
-      <input type="email" class="form-control" id="time" placeholder="Enter time" name="time">
+      <input type="text" class="form-control" id="time" placeholder="Enter time" name="time">
     </div>
 	<div class="form-group">
       <label for="email">Description:</label>
