@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Repository.EventRepository;
+import Repository.UserRepository;
 import model.Event;
+import model.User;
  
 
 public class EventController extends HttpServlet {
@@ -21,22 +23,32 @@ public class EventController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EventRepository er = new EventRepository();
-		List<Event> allevents = er.getAllEvents();
-		RequestDispatcher rd = null;
- 		
-		if (!allevents.equals(null)) 
-		{
-			rd = request.getRequestDispatcher("/Events.jsp");
-			request.setAttribute("allevents", allevents);
-		} 
-		else
-		{
-			rd = request.getRequestDispatcher("/error.jsp");
+		UserRepository ur = new UserRepository();
+		
+		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
+		if(creator == null){
+			request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("error", "not in session");
 		}
+		else{
+		String event_name = request.getParameter("event_name");
+		String date = request.getParameter("date");
+		String time = request.getParameter("time");
+		String description = request.getParameter("description");
+		String location = request.getParameter("location");
+		Event newEvent = new Event(event_name, date, time, description, location, creator);
 		
-		rd.forward(request, response);
 		
+		String result = er.addEvent(newEvent);
 		
+		if(result.equals("success")){
+			doGet(request, response);
+		}else{
+			request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("error","error while adding event");
+		}
+		//rd.forward(request, response);
+		}
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
