@@ -67,6 +67,17 @@
     <url-pattern>/Forum</url-pattern>
   </servlet-mapping>
   
+      <servlet>
+    <description></description>
+    <display-name>CommentController</display-name>
+    <servlet-name>CommentController</servlet-name>
+    <servlet-class>controllers.CommentController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommentController</servlet-name>
+    <url-pattern>/Comment</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <description></description>
     <display-name>EventController</display-name>
