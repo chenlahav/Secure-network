@@ -47,20 +47,21 @@
       </div>
       </form>
 <%
-for (Post p: posts){
+int i;
+for (i=posts.size();i>0;i++){
 	out.print("<div class=\"row\">"+
 	"<div class=\"col-sm-3\">"+
 	"<div class=\"well\">"+
-	"<p>"+p.getAuthor().getUsername()+"</p>"+
-	"<p>"+p.getDate()+"</p>"+
-	"<p>"+p.getTime()+"</p>"+
+	"<p>"+posts.get(i).getAuthor().getUsername()+"</p>"+
+	"<p>"+posts.get(i).getDate()+"</p>"+
+	"<p>"+posts.get(i).getTime()+"</p>"+
 	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
 	"</div>"+
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
-    "<p>"+p.getTitle()+"</p>"+
-    "<p>"+p.getContent()+"</p>"+
+    "<p>"+posts.get(i).getTitle()+"</p>"+
+    "<p>"+posts.get(i).getContent()+"</p>"+
     "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
     "<div class=\"row\">"+
     "<div class=\"col-sm-12\">"+
