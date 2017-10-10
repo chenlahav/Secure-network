@@ -25,6 +25,11 @@ public class AdminController extends HttpServlet {
 		PostRepository pr = new PostRepository();
 		
 		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
+		if(creator.isAdmin() == false){
+			request.getRequestDispatcher("/error.jsp");
+			return;
+		}
+		
 		if(creator == null){
 			request.getRequestDispatcher("/error.jsp");
 			request.setAttribute("error", "not in session");
@@ -75,11 +80,14 @@ public class AdminController extends HttpServlet {
 		if(creator == null){
 			request.getRequestDispatcher("/error.jsp");
 			request.setAttribute("error", "not in session");
+			
 		}
-	/*	if(creator.IsAdmin() == null){
+	if(creator.isAdmin() == false){
 		request.getRequestDispatcher("/error.jsp");
 		request.setAttribute("error", "You access this page");
-	}*/
+		return;
+	}
+	
 		List<Post> allposts = pr.getAllPosts();
 		List<Event> allevents = er.getAllEvents();
 		List<User> allusers = ur.getAllUsers();
