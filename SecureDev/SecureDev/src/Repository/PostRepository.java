@@ -60,7 +60,7 @@ public class PostRepository {
 			PreparedStatement stmt ;
 			String sql= "DELETE FROM tblevents WHERE id=?;";
 			stmt = c.prepareStatement(sql);
-			stmt.setString(1, postToDelete.getId());
+			stmt.setInt(1, postToDelete.getId());
 			stmt.executeUpdate();
 			return "succses";
 			

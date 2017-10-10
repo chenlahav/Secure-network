@@ -69,7 +69,9 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+user.getEmail()+"</td>"+
                   "<td>"+user.getUsername()+"</td>"+
                   "<td>"+"</td>"+
-                  "<td>"+"<button name="+user.getId()+">"+"Delete User"+"</button>"+"</td>"+
+                  "<td>"+"<form name=\"deleteu\"action=\"Admin\" action=\"Post\">"+
+                  "<input type=\"hidden\" name=\"hiddenu\"/>"+
+                  "<button name=\"post\" onclick="+"document.deleteu.hiddenu.value=this.value.document.deleteu.submit()"+"value="+user.getId()+">"+"Delete User"+"</button>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
@@ -116,9 +118,12 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+post.getAuthor()+"</td>"+
                   "<td>"+post.getTitle()+"</td>"+
                   "<td>"+post.getContent()+"</td>"+
-                  "<td>"+"<button name="+post.getId()+">"+"Delete Post"+"</button>"+"</td>"+
+                  "<td>"+"<form name=\"deletep\"action=\"Admin\" action=\"Post\">"+
+                  "<input type=\"hidden\" name=\"hiddenp\"/>"+
+                  "<button name=\"post\" onclick="+"document.deletep.hiddenp.value=this.value.document.deletep.submit()"+"value="+post.getId()+">"+"Delete Post"+"</button>"+"</form>"+"</td>"+
                   "</tr>");
 	}
+
 %>
 				</tbody>
             </table>
@@ -158,6 +163,7 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
 <%
 	for(Event event:EventList)
 	{	
+		
      	out.print("<tr>"+
                   "<td>"+event.getId()+"</td>"+
                   "<td>"+event.getDate()+"</td>"+
@@ -166,7 +172,9 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+event.getCreator()+"</td>"+
                   "<td>"+event.getEvent_name()+"</td>"+
                   "<td>"+event.getDescription()+"</td>"+
-                  "<td>"+"<button name="+event.getId()+">"+"Delete Event"+"</button>"+"</td>"+
+                  "<td>"+"<form name=\"deletee\"action=\"Admin\" action=\"Post\">"+
+                  "<input type=\"hidden\" name=\"hiddene\"/>"+
+                  "<button name=\"post\" onclick="+"document.deletee.hiddene.value=this.value.document.deletee.submit()"+"value="+event.getId()+">"+"Delete Event"+"</button>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
