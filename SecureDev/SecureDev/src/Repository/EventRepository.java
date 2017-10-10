@@ -24,7 +24,7 @@ public class EventRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "INSERT INTO tblevents (eventname, location, date, time, description, creator) VALUES (?,?,?,?,?,?);";
+			String sql= "INSERT INTO tblevents (eventname, location, date, time, description, creatorid) VALUES (?,?,?,?,?,?);";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, newEvent.getEvent_name());
 			stmt.setString(2, newEvent.getLocation());
