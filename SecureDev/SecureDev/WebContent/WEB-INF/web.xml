@@ -78,5 +78,16 @@
     <url-pattern>/Events</url-pattern>
   </servlet-mapping>
   
+<servlet>
+    <description></description>
+    <display-name>AdminController</display-name>
+    <servlet-name>AdminController</servlet-name>
+    <servlet-class>controllers.AdminController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminController</servlet-name>
+    <url-pattern>/Admin</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
 
