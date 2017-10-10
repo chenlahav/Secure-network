@@ -38,6 +38,7 @@
         <div class="col-sm-12">
           <div class="panel panel-default text-left">
             <div class="panel-body">
+            <h3>Create new post</h3><br>
 			<input name = "title" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add the Post title"><br>
 			<input contenteditable="true" name = "content" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add your post"><br>
 			<input class="submitPost btn btn-default btn-sm" type="submit" value="submit">    
@@ -59,8 +60,8 @@ for (Post p: posts){
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
-    "<p>"+p.getTitle()+"</p>"+
-    "<p>"+p.getContent()+"</p>"+
+    "<h3>"+p.getTitle()+"</h3>"+
+    "<br><p>"+p.getContent()+"</p><br>"+
     "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
     "<div class=\"row\">"+
     "<div class=\"col-sm-12\">"+

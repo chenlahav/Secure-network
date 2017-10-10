@@ -64,16 +64,15 @@ for (Event event: EventList){
 	out.print("<div class=\"row\">"+
 	"<div class=\"col-sm-3\">"+
 	"<div class=\"well\">"+
-	"<p>"+event.getEvent_name()+"</p>"+
-	"<p>"+event.getLocation()+"</p>"+
-	"<p>"+event.getTime()+"</p>"+
 	"<p>"+"By: "+event.getCreator().getUsername()+"</p>"+
 	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
 	"</div>"+
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
+	"<h3>"+event.getEvent_name()+"</h3>"+
     "<p>"+event.getDescription()+"</p>"+
+    "<p><strong>Location: </strong>"+event.getLocation()+",  <strong>Date: </strong>"+event.getDate()+",  <strong>Time: </strong>"+event.getTime()+"</p>"+
     "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
     "<div class=\"row\">"+
     "<div class=\"col-sm-12\">"+
