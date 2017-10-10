@@ -29,7 +29,7 @@ public class RegisterController extends HttpServlet{
 		String password = request.getParameter("password");
 //		String hashedPassword = authenticator.toSha256(password);
 		String email = request.getParameter("email");
-		String bdate = request.getParameter("email");
+		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");
 		User newUser= new User(username,/*hashedPassword*/password,id,email,first_name,last_name,bdate,gender);
 		UserRepository rep = new UserRepository();
