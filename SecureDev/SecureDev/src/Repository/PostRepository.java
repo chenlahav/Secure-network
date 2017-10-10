@@ -48,6 +48,7 @@ public class PostRepository {
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
+			e.printStackTrace();
 			return "SQL ERROR";
 		}
 	}
