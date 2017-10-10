@@ -62,7 +62,7 @@ for (Post p: posts){
     "<div class=\"well\">"+
     "<h3>"+p.getTitle()+"</h3>"+
     "<br><p>"+p.getContent()+"</p><br>"+
-    "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
+    "<form id=\"\" class=\"\" action=\"Comment\" method=\"post\">"+
     "<div class=\"row\">"+
     "<div class=\"col-sm-12\">"+
     "<div class=\"panel panel-default text-left\">"+

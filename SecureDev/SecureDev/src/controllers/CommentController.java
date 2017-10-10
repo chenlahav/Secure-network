@@ -3,34 +3,30 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Comment;
-import model.Post;
-import model.User;
 import Repository.CommentsRepository;
 import Repository.PostRepository;
 import Repository.UserRepository;
- 
+import model.Comment;
+import model.Post;
+import model.User;
 
-public class PostController extends HttpServlet {
+public class CommentController  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public PostController() {
+	public CommentController() {
 		super();
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserRepository ur = new UserRepository();
-		User author = ur.getUserById((String)request.getSession().getAttribute("userID"));
-		if(author != null){
-			String title= request.getParameter("title");
+		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
+		if(creator != null){
 			String content = request.getParameter("content");
 			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -38,11 +34,11 @@ public class PostController extends HttpServlet {
 			String strnow = dtf.format(now);
 			String date = strnow.substring(0, strnow.indexOf(" "));
 			String time = strnow.substring(strnow.indexOf(" ")+1);
-			
-			Post newPost = new Post(title, content, author, date, time);
+			int postId = request.getAttribute("postid");
+			Comment newComment = new Comment(time, date, content, postId, creator);
 	 		
-			PostRepository pr = new PostRepository();
-			String result = pr.addPost(newPost);
+			CommentsRepository cr = new CommentsRepository();
+			String result = cr.addComment(newComment);
 			
 			if (result.equals("success")) {
 				doGet(request, response);
@@ -56,19 +52,5 @@ public class PostController extends HttpServlet {
 			request.setAttribute("error", "not in session");	
 		}
 		
-
-		
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		PostRepository pr = new PostRepository();
-		List<Post> allposts = pr.getAllPosts();
-		request.setAttribute("allposts", allposts);
-		CommentsRepository cr = new CommentsRepository();
-		List<Comment> allComments = cr.getAllComments();
-		request.setAttribute("allcomments",allComments);
-		
-		request.getRequestDispatcher("/Forum.jsp").forward(request, response);
 	}
 }
