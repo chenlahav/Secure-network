@@ -12,8 +12,8 @@ public class Authenticator {
 	
 	public String authenticate(String username, String password) 
 	{
-		//String hashedPassword = toSha256(password);
-		User user_to_authenticate = new User(username, /*hashedPassword*/password);
+		String hashedPassword = this.toSha256(password);
+		User user_to_authenticate = new User(username, hashedPassword/*password*/);
 		UserRepository userrep = new UserRepository();
 		String result = userrep.userAuthenticator(user_to_authenticate);
 		return result;

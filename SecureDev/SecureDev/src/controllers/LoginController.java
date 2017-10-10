@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
  
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String password = request.getParameter("pwd");
 		RequestDispatcher rd = null;
 		try {
 			Database.getInstance().init();
