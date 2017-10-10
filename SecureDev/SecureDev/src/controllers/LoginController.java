@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Repository.UserRepository;
+import database.Database;
 import model.Authenticator;
 import model.User;
   
@@ -32,7 +34,11 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		RequestDispatcher rd = null;
- 
+		try {
+			Database.getInstance().init();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.authenticate(username, password);
 		
