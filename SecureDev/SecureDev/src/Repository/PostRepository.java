@@ -100,7 +100,7 @@ public class PostRepository {
 			Connection c = Database.getInstance().getConnection();
 			Statement stmt = null;
 			stmt = c.createStatement();
-			String sql="SELECT * FROM tblpost;";
+			String sql="SELECT * FROM tblpost ORDER BY id desc;";
 			ResultSet rs = stmt.executeQuery(sql);
 			List<Post> allPosts = new ArrayList<>();
 			while (rs.next()) {
