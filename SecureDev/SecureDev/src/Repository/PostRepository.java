@@ -58,12 +58,9 @@ public class PostRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "UPDATE tblpost SET title=?,content=?,date=?,time=?;";
+			String sql= "DELETE FROM tblevents WHERE id=?;";
 			stmt = c.prepareStatement(sql);
-			stmt.setString(1, postToDelete.getTitle());
-			stmt.setString(2, postToDelete.getContent());
-			stmt.setString(3, postToDelete.getDate());
-			stmt.setString(4, postToDelete.getTime());
+			stmt.setString(1, postToDelete.getId());
 			stmt.executeUpdate();
 			return "succses";
 			
