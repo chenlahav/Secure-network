@@ -12,7 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
   .jumbotron {
-      background-color: #555;
+      background-color: #3c3934;
       color: #fff;
   }
   </style>
@@ -21,7 +21,7 @@
 
 <div class="jumbotron text-center">
   <h1>Security on Top</h1> 
-  <p>Join us to a new exprience</p> 
+  <p>Join us to a new experience</p> 
 </div>
 
 </body>

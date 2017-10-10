@@ -92,8 +92,8 @@
   </div>
 </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
+<jsp:include page="Footer.jsp"></jsp:include>
+
 </footer>
 
 </body>
