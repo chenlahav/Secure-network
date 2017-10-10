@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Repository.CommentsRepository;
-import Repository.PostRepository;
 import Repository.UserRepository;
 import model.Comment;
-import model.Post;
 import model.User;
 
 public class CommentController  extends HttpServlet {
@@ -34,14 +32,15 @@ public class CommentController  extends HttpServlet {
 			String strnow = dtf.format(now);
 			String date = strnow.substring(0, strnow.indexOf(" "));
 			String time = strnow.substring(strnow.indexOf(" ")+1);
-			int postId = request.getAttribute("postid");
+			int postId = Integer.parseInt((String) request.getAttribute("postId"));
 			Comment newComment = new Comment(time, date, content, postId, creator);
 	 		
 			CommentsRepository cr = new CommentsRepository();
 			String result = cr.addComment(newComment);
 			
 			if (result.equals("success")) {
-				doGet(request, response);
+				PostController pc = new PostController();
+				pc.doGet(request, response);
 			}else{
 				request.getRequestDispatcher("/error.jsp");
 				request.setAttribute("error", "error while adding post");
