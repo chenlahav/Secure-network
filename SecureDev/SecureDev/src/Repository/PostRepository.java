@@ -58,11 +58,11 @@ public class PostRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "DELETE FROM tblevents WHERE id=?;";
+			String sql= "DELETE FROM tblpost WHERE id=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setInt(1, postToDelete.getId());
 			stmt.executeUpdate();
-			return "succses";
+			return "success";
 			
 		}catch (Exception e){
 			   return "SQL ERROR";

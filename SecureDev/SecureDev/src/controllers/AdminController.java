@@ -40,7 +40,6 @@ public class AdminController extends HttpServlet {
 		String result = null;
 		if(uIdToDelete!= null)
 		{
-			int id = Integer.parseInt(uIdToDelete);
 			User UserToDelete = ur.getUserById(uIdToDelete);
 			result = ur.deleteUser(UserToDelete);			
 		}

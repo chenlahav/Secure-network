@@ -38,7 +38,8 @@ public class RegisterController extends HttpServlet{
 		String email = request.getParameter("email");
 		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");
-		User newUser= new User(username,hashedPassword/*password*/,id,email,first_name,last_name,bdate,gender);
+		String telephone = request.getParameter("telephone");
+		User newUser= new User(username,hashedPassword/*password*/,id,email,first_name,last_name,bdate,gender,telephone);
 		UserRepository rep = new UserRepository();
 		String result = rep.addUser(newUser);
 		RequestDispatcher rd = null;

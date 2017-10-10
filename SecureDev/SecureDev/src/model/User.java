@@ -15,9 +15,11 @@ public class User {
 	private String lastName;
 	private String Bday;
 	private String gender;
+	private String telephone;
+	private boolean isAdmin;
 
 	public User(String username, String password, String id, String email, String firstName, String lastName,
-			String bday, String gender) {
+			String bday, String gender,String telephone) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -27,8 +29,25 @@ public class User {
 		this.lastName = lastName;
 		this.Bday = bday;
 		this.gender = gender;
+		this.telephone = telephone;
 	}
 	
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	public User(String username, String password)
 	{
 		this.username = username;

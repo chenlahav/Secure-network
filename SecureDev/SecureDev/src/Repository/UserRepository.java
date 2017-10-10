@@ -22,7 +22,7 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender) VALUES (?,?,?,?,?,?,?,?);";
+			String sql="INSERT INTO tblusers (id,username,password,firstName,lastName,email,birthOfDate,gender,telephoneNumber) VALUES (?,?,?,?,?,?,?,?,?);";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, newUser.getId());
 			stmt.setString(2, newUser.getUsername());
@@ -32,6 +32,7 @@ public class UserRepository {
 			stmt.setString(6,newUser.getEmail());
 			stmt.setString(7, newUser.getBday());
 			stmt.setString(8,newUser.getGender());
+			stmt.setString(9, newUser.getTelephone());
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e){
@@ -44,7 +45,7 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "UPDATE tblevents SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?;";
+			String sql= "UPDATE tblusers SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getId());
 			stmt.setString(2, user.getUsername());
@@ -54,6 +55,7 @@ public class UserRepository {
 			stmt.setString(6, user.getEmail());
 			stmt.setString(7, user.getBday());
 			stmt.setString(8, user.getGender());
+			stmt.setString(9, user.getTelephone());
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
@@ -66,7 +68,7 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "DELETE FROM tblevents WHERE id=?;";
+			String sql= "DELETE FROM tblusers WHERE id=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getId());
 			stmt.executeUpdate();
@@ -86,7 +88,8 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
+				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"));
+				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				return userRequested;
 			} else {
 				return null;
@@ -107,7 +110,8 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
+				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"));
+				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				return userRequested;
 			} else {
 				return null;
@@ -144,7 +148,8 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery(sql);
 			List<User> allUsers = new ArrayList<>();
 			while (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"));
+				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"));
+				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				allUsers.add(userRequested);
 			}
 			return allUsers;

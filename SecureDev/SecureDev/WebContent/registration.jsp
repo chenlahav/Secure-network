@@ -58,6 +58,11 @@
 							</div>
 							
 							<div class="form-group">
+							<label for="telephone" class="label">Date of Birth</label>
+								<input type="text" name="telephone" class="form-control" placeholder="Telephone Number"/>
+							</div>
+							
+							<div class="form-group">
 								 <label for="gender" class="label">Gender</label><br>
 							 	 <input type="radio" name="gender" value="Male" checked>Male<br>
   								 <input type="radio" name="gender" value="Female">Female

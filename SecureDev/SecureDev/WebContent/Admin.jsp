@@ -45,18 +45,6 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   <th>Delete</th>
                 </tr>
               </thead>
-              <tfoot>
-                <tr>
-                 <th>ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Birth Date</th>
-                  <th>Email</th>
-                  <th>User Name</th>
-                  <th>Telephone Number</th>
-                  <th>Delete</th>
-                </tr>
-              </tfoot>
               <tbody>
 <%
 	for(User user:UserList)
@@ -68,10 +56,10 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+user.getBday()+"</td>"+
                   "<td>"+user.getEmail()+"</td>"+
                   "<td>"+user.getUsername()+"</td>"+
-                  "<td>"+"</td>"+
-                  "<td>"+"<form name=\"deleteu\"action=\"Admin\" action=\"Post\">"+
-                  "<input type=\"hidden\" name=\"hiddenu\"/>"+
-                  "<button name=\"post\" onclick="+"document.deleteu.hiddenu.value=this.value.document.deleteu.submit()"+"value="+user.getId()+">"+"Delete User"+"</button>"+"</form>"+"</td>"+
+                  "<td>"+user.getTelephone()+"</td>"+
+                  "<td>"+"<form name=\"deleteu\"action=\"Admin\" method=\"post\">"+
+                  "<input type=\"hidden\" name=\"hiddenu\"value="+user.getId()+"></input>"+
+                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
@@ -82,45 +70,34 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
     </div>
        <div class="card mb-3">
         <div class="card-header">
-          <i class="fa fa-table"></i> Posts Example</div>
+          <i class="fa fa-table"></i> Posts Table</div>
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Posted Date</th>
-                  <th>Posted Hour</th>
                   <th>ID</th>
-                  <th>Author</th>
                   <th>Title</th>
                   <th>Content</th>
+                  <th>Author</th>
+                  <th>Posted Date</th>
+                  <th>Posted Hour</th>
                   <th>Delete</th>
                 </tr>
               </thead>
-              <tfoot>
-                <tr>
-                  <th>Posted Date</th>
-                  <th>Posted Hour</th>
-                  <th>ID</th>
-                  <th>Author</th>
-                  <th>Title</th>
-                  <th>Content</th>
-                  <th>Delete</th>
-                </tr>
-              </tfoot>
               <tbody>
 <%
 	for(Post post:PostList)
 	{	
      	out.print("<tr>"+
-                  "<td>"+post.getDate()+"</td>"+
-                  "<td>"+post.getTime()+"</td>"+
                   "<td>"+post.getId()+"</td>"+
-                  "<td>"+post.getAuthor()+"</td>"+
                   "<td>"+post.getTitle()+"</td>"+
                   "<td>"+post.getContent()+"</td>"+
-                  "<td>"+"<form name=\"deletep\"action=\"Admin\" action=\"Post\">"+
-                  "<input type=\"hidden\" name=\"hiddenp\"/>"+
-                  "<button name=\"post\" onclick="+"document.deletep.hiddenp.value=this.value.document.deletep.submit()"+"value="+post.getId()+">"+"Delete Post"+"</button>"+"</form>"+"</td>"+
+                  "<td>"+post.getAuthor().getUsername()+"</td>"+
+                  "<td>"+post.getDate()+"</td>"+
+                  "<td>"+post.getTime()+"</td>"+
+                  "<td>"+"<form name=\"deletep\"action=\"Admin\" method=\"post\">"+
+                  "<input type=\"hidden\" name=\"hiddenp\"value="+post.getId()+"></input>"+
+                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 
@@ -138,27 +115,15 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
               <thead>
                 <tr>
                   <th>ID</th>
+                  <th>Event Name</th>
+                  <th>Description</th>
+                  <th>Creator</th>
                   <th>Date</th>
                   <th>Time</th>
                   <th>Location</th>
-                  <th>Creator</th>
-                  <th>Event Name</th>
-                  <th>Description</th>
                   <th>Delete</th>
                 </tr>
               </thead>
-              <tfoot>
-                <tr>
-                  <th>ID</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Location</th>
-                  <th>Creator</th>
-                  <th>Event Name</th>
-                  <th>Description</th>
-                  <th>Delete</th>
-                </tr>
-              </tfoot>
               <tbody>
 <%
 	for(Event event:EventList)
@@ -166,15 +131,15 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
 		
      	out.print("<tr>"+
                   "<td>"+event.getId()+"</td>"+
+                  "<td>"+event.getEvent_name()+"</td>"+
+                  "<td>"+event.getDescription()+"</td>"+
+                  "<td>"+event.getCreator().getUsername()+"</td>"+
                   "<td>"+event.getDate()+"</td>"+
                   "<td>"+event.getTime()+"</td>"+
                   "<td>"+event.getLocation()+"</td>"+
-                  "<td>"+event.getCreator()+"</td>"+
-                  "<td>"+event.getEvent_name()+"</td>"+
-                  "<td>"+event.getDescription()+"</td>"+
-                  "<td>"+"<form name=\"deletee\"action=\"Admin\" action=\"Post\">"+
-                  "<input type=\"hidden\" name=\"hiddene\"/>"+
-                  "<button name=\"post\" onclick="+"document.deletee.hiddene.value=this.value.document.deletee.submit()"+"value="+event.getId()+">"+"Delete Event"+"</button>"+"</form>"+"</td>"+
+                  "<td>"+"<form name=\"deletee\"action=\"Admin\" method=\"post\">"+
+                  "<input type=\"hidden\" name=\"hiddene\"value="+event.getId()+"></input>"+
+                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
