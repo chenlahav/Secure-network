@@ -42,7 +42,7 @@
 <br>
 <br>
 
-<jsp:include page="Footer.jsp"/>
+<jsp:include page="Footer.jsp"></jsp:include>
 	
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>

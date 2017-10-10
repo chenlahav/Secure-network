@@ -11,14 +11,12 @@
    <!-- Bootstrap core CSS -->
    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <!-- Custom styles for this template -->
-   <link href="css/modern-business.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; The SecNetwork 2017</p>
+<footer class="py-5 bg-dark">
+      <div class="container-fluid">
         <!-- Navigation -->
    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
      <div class="container">
@@ -42,8 +40,11 @@
            </li>
          </ul>
        </div>
+       <br>
+       <br>
      </div>
     </nav>
+     <p class="m-0 text-center text-white">Copyright &copy; Security on Top 2017</p>
       </div>
       <!-- /.container -->
     </footer>
