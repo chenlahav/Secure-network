@@ -2,7 +2,6 @@ package model;
 
 import Repository.UserRepository;
 
-
 public class Authenticator {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,9 +12,15 @@ public class Authenticator {
 	
 	public String authenticate(String username, String password) 
 	{
-		User user_to_authenticate = new User(username, password);
+		//String hashedPassword = toSha256(password);
+		User user_to_authenticate = new User(username, /*hashedPassword*/password);
 		UserRepository userrep = new UserRepository();
 		String result = userrep.userAuthenticator(user_to_authenticate);
 		return result;
+	}
+	
+	public String toSha256(String password) {
+		String hashed = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);   
+		return hashed;
 	}
 }

@@ -183,19 +183,12 @@ public class UserRepository extends AbstractRepository{
 				stmt.setString(2, user.getPassword());
 				ResultSet rs = stmt.executeQuery();
 				
-				if (rs.next()) {
-					return "success";
-				  } 
-				else
-				  {
-					return "failure";
-				  }
 			   }catch (Exception e){
 					e.printStackTrace();
 					return "SQL ERROR";
 			   }
 		}
-		return null;
+		return "success";
 	}
 	
 	public List<User> getAllUsers(){

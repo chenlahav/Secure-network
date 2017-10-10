@@ -16,7 +16,6 @@ public class ProfileController extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 	RequestDispatcher rd = null;
-	String name;
 	rd = request.getRequestDispatcher("/Profile.jsp");
 
 	rd.forward(request, response);

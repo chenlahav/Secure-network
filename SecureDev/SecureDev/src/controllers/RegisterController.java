@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Repository.UserRepository;
+//import model.Authenticator;
 import model.User;
 
 public class RegisterController extends HttpServlet{
@@ -20,15 +21,17 @@ public class RegisterController extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+//		Authenticator authenticator = new Authenticator();
 		String id= request.getParameter("id");
 		String first_name = request.getParameter("first name");
 		String last_name = request.getParameter("last name");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+//		String hashedPassword = authenticator.toSha256(password);
 		String email = request.getParameter("email");
 		String bdate = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		User newUser= new User(username,password,id,email,first_name,last_name,bdate,gender);
+		User newUser= new User(username,/*hashedPassword*/password,id,email,first_name,last_name,bdate,gender);
 		UserRepository rep = new UserRepository();
 		String result = rep.addUser(newUser);
 		RequestDispatcher rd = null;
