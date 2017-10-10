@@ -25,7 +25,7 @@
 
 <br>
 <br>
-<form id="postForm" class="postForm" action="Event" method="post">
+<form id="postForm" class="postForm" action="Events" method="post">
 	<div class="form-group">
       <label for="email">Event Name:</label>
       <input type="text" class="form-control" id="event_name" placeholder="Enter name" name="event_name">
