@@ -68,6 +68,14 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
+			PostRepository pr = new PostRepository();
+			if(pr.deletePostsByUserID(user.getId())!= "success"){
+				return "SQL ERROR";
+			}
+			EventRepository er = new EventRepository();
+			if(er.deleteEventsByUserId(user.getId())!="success"){
+				return "SQL ERROR";
+			}
 			String sql= "DELETE FROM tblusers WHERE id=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getId());

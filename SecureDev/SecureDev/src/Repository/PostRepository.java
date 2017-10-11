@@ -121,4 +121,40 @@ public class PostRepository {
 				return new ArrayList<Post>();
 		 }
 	}
+	
+	public List<Post> getAllPostsByUserID(String userid) {
+		try{
+			Connection c = Database.getInstance().getConnection();
+			PreparedStatement stmt ;
+			String sql="SELECT * FROM tblpost WHERE authorid=?;";
+			stmt = c.prepareStatement(sql);
+			stmt.setString(1, userid);
+			ResultSet rs = stmt.executeQuery();
+			List<Post> allPosts = new ArrayList<>();
+			while (rs.next()) {
+				UserRepository ur = new UserRepository();
+				User author = ur.getUserById(rs.getString("authorid"));
+				Post postRequested = new Post(rs.getString("title"),rs.getString("content"),author,rs.getString("date"),rs.getString("time"));
+				postRequested.setId(rs.getInt("id"));
+				allPosts.add(postRequested);
+			}
+			return allPosts;
+		 }catch (Exception e){
+				e.printStackTrace();
+				return new ArrayList<Post>();
+		 }
+	}
+	
+	public String deletePostsByUserID(String userID)
+	{
+		try{
+			List<Post> deletedPosts = getAllPostsByUserID(userID);
+			for(Post p : deletedPosts){
+				deletePost(p);
+			}
+			return "success";
+		}catch (Exception e){
+			   return "SQL ERROR";
+		}
+	}
 }

@@ -139,5 +139,15 @@ public class EventRepository {
 				return new ArrayList<Event>();
 		   }
 	}
+	
+	public String deleteEventsByUserId(String userid){
+		List<Event> eventtodelete = getAllEventsByUserID(userid);
+		for (Event e : eventtodelete){
+			if(deleteEvent(e)!="success"){
+				return "SQL ERROR";
+			}
+		}
+		return "success";
+	}
 }
 				
