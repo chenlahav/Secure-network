@@ -42,6 +42,7 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   <th>Email</th>
                   <th>User Name</th>
                   <th>Telephone Number</th>
+                  <th>Is Admin</th>
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -57,9 +58,14 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+user.getEmail()+"</td>"+
                   "<td>"+user.getUsername()+"</td>"+
                   "<td>"+user.getTelephone()+"</td>"+
+                  "<td id=\"admin\">"+user.isAdmin()+"</td>"+
                   "<td>"+"<form name=\"deleteu\"action=\"Admin\" method=\"post\">"+
                   "<input type=\"hidden\" name=\"hiddenu\"value="+user.getId()+"></input>"+
-                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
+                  "<input type=\"submit\"/ value=\"Press to Delete User\">"+"</input>"+"</form>"+"</td>"+
+                  "<td>"+"<form name=\"deleteu\"action=\"Admin\" method=\"post\">"+
+                  "<input type=\"hidden\" name=\"hiddenAdmin\"value="+user.getId()+">"+"</input>"+
+                  "<input type=\"checkbox\" name=\"adminCheck\"value="+user.getId()+">"+"</input>"+
+                  "<input type=\"submit\" value=\"Press to Change to Admin\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
@@ -96,8 +102,8 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+post.getDate()+"</td>"+
                   "<td>"+post.getTime()+"</td>"+
                   "<td>"+"<form name=\"deletep\"action=\"Admin\" method=\"post\">"+
-                  "<input type=\"hidden\" name=\"hiddenp\"value="+post.getId()+"></input>"+
-                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
+                  "<input type=\"hidden\" name=\"hiddenp\" value="+post.getId()+"></input>"+
+                  "<input type=\"submit\" value=\"Press to Delete Post\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 
@@ -139,7 +145,7 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<td>"+event.getLocation()+"</td>"+
                   "<td>"+"<form name=\"deletee\"action=\"Admin\" method=\"post\">"+
                   "<input type=\"hidden\" name=\"hiddene\"value="+event.getId()+"></input>"+
-                  "<input type=\"submit\"/>"+"</input>"+"</form>"+"</td>"+
+                  "<input type=\"submit\"value=\"Press to Delete Event\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>
@@ -150,4 +156,7 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
     </div>
 <jsp:include page="Footer.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>
