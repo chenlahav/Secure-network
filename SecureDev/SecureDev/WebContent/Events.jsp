@@ -73,18 +73,6 @@ for (Event event: EventList){
 	"<h3>"+event.getEvent_name()+"</h3>"+
     "<p>"+event.getDescription()+"</p>"+
     "<p><strong>Location: </strong>"+event.getLocation()+",  <strong>Date: </strong>"+event.getDate()+",  <strong>Time: </strong>"+event.getTime()+"</p>"+
-    "<form id=\"\" class=\"\" action=\"Forum\" method=\"post\">"+
-    "<div class=\"row\">"+
-    "<div class=\"col-sm-12\">"+
-    "<div class=\"panel panel-default text-left\">"+
-    "<div class=\"panel-body\">"+
-	"<input name = \"title\" class=\"newE panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
-	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\">"+    
-    "</div>"+
-	"</div>"+
-    "</div>"+
-	"</div>"+
-    "</form>"+
     "</div>"+
     "</div>"+
 	"</div>");

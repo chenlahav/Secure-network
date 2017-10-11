@@ -70,8 +70,8 @@ for (Post p: posts){
     "<div class=\"panel panel-default text-left\">"+
     "<div class=\"panel-body\">"+
 	"<input name = \"content\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
-	"<input type=\"hidden\" name=\"postid\" value="+p.getId()+">"+
-	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\">"+    
+	"<input type=\"hidden\" name=\"postid\" value="+p.getId()+"></input>"+
+	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\"></input>"+    
     "</div>"+
 	"</div>"+
     "</div>"+

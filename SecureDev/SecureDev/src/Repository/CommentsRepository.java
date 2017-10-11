@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.Database;
-import model.Event;
 import model.User;
 import model.Comment;
 public class CommentsRepository {
@@ -22,7 +21,8 @@ public class CommentsRepository {
 			stmt.setString(1, newComment.getTime());
 			stmt.setString(2, newComment.getDate());
 			stmt.setString(3, newComment.getContent());
-			stmt.setString(4, newComment.getCreator().getId());
+			stmt.setInt(4, newComment.getPostId());
+			stmt.setString(5, newComment.getCreator().getId());
 			stmt.executeUpdate();
 			return "success";
 			
