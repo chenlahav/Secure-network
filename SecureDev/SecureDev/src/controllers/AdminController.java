@@ -41,13 +41,18 @@ public class AdminController extends HttpServlet {
 			String uIdToDelete = request.getParameter("hiddenu");
 			String pIdToDelete = request.getParameter("hiddenp");
 			String eIdToDelete = request.getParameter("hiddene");
-			String uToAdmin = request.getParameter("adminCheck");
+			String uToAdmin = request.getParameter("hiddenAdmin");
 			String result = null;
 			if (uToAdmin != null) {
-				String uIdToAdmin = request.getParameter("hiddenAdmin");
-				User userToAdmin = ur.getUserById(uIdToAdmin);
-				userToAdmin.setAdmin(true);
-				result = ur.editUser(userToAdmin);
+				User userToAdmin = ur.getUserById(uToAdmin);
+				if(userToAdmin.isAdmin()){
+					userToAdmin.setAdmin(false);
+					result = ur.editUser(userToAdmin);
+				}else{
+					userToAdmin.setAdmin(true);
+					result = ur.editUser(userToAdmin);
+				}
+				
 			}
 			if (uIdToDelete != null) {
 				User UserToDelete = ur.getUserById(uIdToDelete);

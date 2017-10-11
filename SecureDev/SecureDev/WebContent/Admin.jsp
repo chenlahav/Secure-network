@@ -64,8 +64,7 @@ List<User> UserList = (List<User>)request.getAttribute("allusers");
                   "<input type=\"submit\"/ value=\"Press to Delete User\">"+"</input>"+"</form>"+"</td>"+
                   "<td>"+"<form name=\"deleteu\"action=\"Admin\" method=\"post\">"+
                   "<input type=\"hidden\" name=\"hiddenAdmin\"value="+user.getId()+">"+"</input>"+
-                  "<input type=\"checkbox\" name=\"adminCheck\"value="+user.getId()+">"+"</input>"+
-                  "<input type=\"submit\" value=\"Press to Change to Admin\"/>"+"</input>"+"</form>"+"</td>"+
+                  "<input type=\"submit\" value=\"Press to Change Admin Ststus\"/>"+"</input>"+"</form>"+"</td>"+
                   "</tr>");
 	}
 %>

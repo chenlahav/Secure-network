@@ -123,5 +123,26 @@
     <url-pattern>/Admin</url-pattern>
   </servlet-mapping>
   
+ <servlet>
+    <description></description>
+    <display-name>InformationController</display-name>
+    <servlet-name>InformationController</servlet-name>
+    <servlet-class>controllers.InformationController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InformationController</servlet-name>
+    <url-pattern>/Information</url-pattern>
+  </servlet-mapping>
+
+ <servlet>
+    <description></description>
+    <display-name>AllUsersController</display-name>
+    <servlet-name>AllUsersController</servlet-name>
+    <servlet-class>controllers.AllUsersController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AllUsersController</servlet-name>
+    <url-pattern>/AllUsers</url-pattern>
+  </servlet-mapping>
 </web-app>
 

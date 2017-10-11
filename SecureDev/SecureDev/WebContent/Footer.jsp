@@ -1,52 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=windows-1255"
-    pageEncoding="windows-1255"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.ArrayList"%>
+	<%@page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <meta name="description" content="">
-   <meta name="author" content="">
-   <title>The SecNetwork</title>
-   <!-- Bootstrap core CSS -->
-   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-   <!-- Custom styles for this template -->
-<title>Insert title here</title>
+  <title>Security on Top</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer >
       <div class="container-fluid">
-        <!-- Navigation -->
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-     <div class="container">
-       <a class="navbar-brand" href="#">About Us</a>
-       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-       </button>
-       <div class="collapse navbar-collapse" id="navbarResponsive">
-         <ul class="navbar-nav ml-auto">
-           <li class="nav-item">
-             <a class="nav-link" href="#">Help</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="#">Jobs</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="#">Terms</a>
-           </li>
-           <li class="nav-item">
-             <a class="nav-link" href="#">Privacy</a>
-           </li>
-         </ul>
-       </div>
-       <br>
-       <br>
-     </div>
-    </nav>
-     <p class="m-0 text-center text-white">Copyright &copy; Security on Top 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Jobs</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>
+      <li class="nav-item"><a class="nav-link"  href="#">Privacy</a></li>
+
+    </ul>
+  </div>
+</nav>	
+<p class="m-0 text-center text-white">Copyright &copy; Security on Top 2017</p>
+</div>
+</footer>
 </body>
 </html>

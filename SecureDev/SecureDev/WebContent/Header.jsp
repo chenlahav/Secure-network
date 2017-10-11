@@ -23,6 +23,8 @@
       <li><a href="/SecureDev/Forum">Forum</a></li>
       <li><a href="/SecureDev/Events">Events</a></li>
       <li><a href="/SecureDev/Admin">Admin</a></li>
+      <li><a href="/SecureDev/Information">Info</a></li>
+      <li><a href="/SecureDev/AllUsers">AllUsers</a></li>
       <li><a href="#">LogOut</a></li>
 
     </ul>
