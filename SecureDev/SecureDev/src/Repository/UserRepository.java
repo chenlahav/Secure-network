@@ -45,7 +45,7 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "UPDATE tblusers SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?;";
+			String sql= "UPDATE tblusers SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?, isAdmin=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getId());
 			stmt.setString(2, user.getUsername());
@@ -56,6 +56,7 @@ public class UserRepository {
 			stmt.setString(7, user.getBday());
 			stmt.setString(8, user.getGender());
 			stmt.setString(9, user.getTelephone());
+			stmt.setBoolean(10, user.isAdmin());
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
