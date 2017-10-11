@@ -36,6 +36,18 @@
   
   <servlet>
     <description></description>
+    <display-name>SearchController</display-name>
+    <servlet-name>SearchController</servlet-name>
+    <servlet-class>controllers.SearchController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchController</servlet-name>
+    <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <description></description>
     <display-name>LoginController</display-name>
     <servlet-name>LoginController</servlet-name>
     <servlet-class>controllers.LoginController</servlet-class>

@@ -121,7 +121,27 @@ public class UserRepository {
 				return null;
 		 }
 	}
-		
+	
+	public List<User> getUsersByFirstname(String firstname){
+		try{
+			Connection c = Database.getInstance().getConnection();
+			PreparedStatement stmt ;
+			String sql= "SELECT * FROM tblusers WHERE firstName = ?;";
+			stmt = c.prepareStatement(sql);
+			stmt.setString(1, firstname);	
+			ResultSet rs = stmt.executeQuery();
+			List<User> listOfUsers =  new ArrayList<>();
+			while (rs.next()) {
+				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"));
+				userRequested.setAdmin(rs.getBoolean("isAdmin"));
+				listOfUsers.add(userRequested);
+			  }
+			return listOfUsers;
+		   }catch (Exception e){
+				e.printStackTrace();
+				return new ArrayList<User>();
+		 }
+	}
 	
 	public String userAuthenticator(User user){
 		try{
