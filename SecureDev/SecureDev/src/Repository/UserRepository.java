@@ -45,18 +45,17 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "UPDATE tblusers SET id=? ,username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?, isAdmin=?;";
+			String sql= "UPDATE tblusers SET username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?, isAdmin=? WHERE id=?;";
 			stmt = c.prepareStatement(sql);
-			stmt.setString(1, user.getId());
-			stmt.setString(2, user.getUsername());
-			stmt.setString(3, user.getPassword());
-			stmt.setString(4, user.getFirstName());
-			stmt.setString(5, user.getLastName());
-			stmt.setString(6, user.getEmail());
-			stmt.setString(7, user.getBday());
-			stmt.setString(8, user.getGender());
-			stmt.setString(9, user.getTelephone());
-			stmt.setBoolean(10, user.isAdmin());
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, user.getFirstName());
+			stmt.setString(3, user.getLastName());
+			stmt.setString(4, user.getEmail());
+			stmt.setString(5, user.getBday());
+			stmt.setString(6, user.getGender());
+			stmt.setString(7, user.getTelephone());
+			stmt.setBoolean(8, user.isAdmin());
+			stmt.setString(9, user.getId());
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
