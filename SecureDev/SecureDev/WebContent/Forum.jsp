@@ -76,16 +76,20 @@ for (Post p: posts){
 	"</div>"+
     "</div>"+
 	"</div>"+
-    "</form>"+
-    "</div>"+
-    "</div>"+
-	"</div>");
+    "</form>");
 	for(Comment c:comments){
 		if(p.getId()==c.getPostId())
-		out.print("<br><p>"+c.getDate()+"  "+c.getTime()+"</p><br>"+
+		out.print("<div class=\"well\">"+
+			    "<br><p>"+c.getDate()+"  "+c.getTime()+"</p><br>"+
 				"<br><p>"+"By: "+c.getCreator()+"</p><br>"+
-				"<br><p>"+c.getContent()+"</p><br>");
+				"<div class=\"panel panel-default text-left\">"+
+			    "<div class=\"panel-body\">"+
+				"<br><p>"+c.getContent()+"</p><br>"+
+				"</div>"+
+				"</div>"+
+				"</div>");
 	}
+	out.print("</div>"+"</div>"+"</div>");
 }
 
 %>
