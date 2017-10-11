@@ -31,13 +31,13 @@ public class CommentsRepository {
 		}
 	}
 	
-	public String DeleteComment(Comment CommentToDelete){
+	public String DeleteComment(int IDCommentToDelete){
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "DELETE FROM tblcoments WHERE id=?;";
+			String sql= "DELETE FROM tblcomments WHERE id=?;";
 			stmt = c.prepareStatement(sql);
-			stmt.setInt(1, CommentToDelete.getId());
+			stmt.setInt(1, IDCommentToDelete);
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
@@ -127,5 +127,42 @@ public class CommentsRepository {
 				e.printStackTrace();
 				return new ArrayList<Comment>();
 		   }
+	}
+	
+	public List<Comment> getAllCommentsByPostID(String id){
+		try{
+			Connection c = Database.getInstance().getConnection();
+			PreparedStatement stmt ;
+			String sql= "SELECT * FROM tblcomments WHERE postid =?;";
+			stmt = c.prepareStatement(sql);
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+			List<Comment> allComments = new ArrayList<>();
+			while (rs.next()) {
+				UserRepository ur = new UserRepository();
+				User creator = ur.getUserById(rs.getString("creatorid"));
+				Comment commentRequested = new Comment(rs.getString("time"), rs.getString("date"), rs.getString("content"), rs.getInt("postid"), creator);
+				commentRequested.setId(rs.getInt("id"));
+				allComments.add(commentRequested);
+			  } 
+			return allComments;
+		   }catch (Exception e){
+				e.printStackTrace();
+				return new ArrayList<Comment>();
+		   }
+	}
+	
+	public String DeleteAllCommentsByPostID(int postid){
+		try{
+			Connection c = Database.getInstance().getConnection();
+			PreparedStatement stmt ;
+			String sql= "DELETE FROM tblcomments WHERE postid=?;";
+			stmt = c.prepareStatement(sql);
+			stmt.setInt(1, postid);
+			stmt.executeUpdate();
+			return "success";
+		}catch (Exception e) {
+			return "SQL ERROR";
+		}
 	}
 }

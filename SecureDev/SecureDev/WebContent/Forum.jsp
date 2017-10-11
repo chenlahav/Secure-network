@@ -81,7 +81,7 @@ for (Post p: posts){
 		if(p.getId()==c.getPostId())
 		out.print("<div class=\"well\">"+
 			    "<br><p>"+c.getDate()+"  "+c.getTime()+"</p><br>"+
-				"<br><p>"+"By: "+c.getCreator()+"</p><br>"+
+				"<br><p>"+"By: "+c.getCreator().getUsername()+"</p><br>"+
 				"<div class=\"panel panel-default text-left\">"+
 			    "<div class=\"panel-body\">"+
 				"<br><p>"+c.getContent()+"</p><br>"+
