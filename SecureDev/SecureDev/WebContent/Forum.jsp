@@ -3,9 +3,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Post"%>
+<%@page import="model.Comment"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	List<Post> posts = (List<Post>) request.getAttribute("allposts");
+    List<Comment> comments = (List<Comment>) request.getAttribute("allcomments");
 %>
 <%
 		if(session.getAttribute("username") != null){
@@ -67,7 +69,8 @@ for (Post p: posts){
     "<div class=\"col-sm-12\">"+
     "<div class=\"panel panel-default text-left\">"+
     "<div class=\"panel-body\">"+
-	"<input name = \"title\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
+	"<input name = \"content\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
+	"<input type=\"hidden\" name=\"postid\" value="+p.getId()+">"+
 	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\">"+    
     "</div>"+
 	"</div>"+
@@ -77,6 +80,12 @@ for (Post p: posts){
     "</div>"+
     "</div>"+
 	"</div>");
+	for(Comment c:comments){
+		if(p.getId()==c.getPostId())
+		out.print("<br><p>"+c.getDate()+"  "+c.getTime()+"</p><br>"+
+				"<br><p>"+"By: "+c.getCreator()+"</p><br>"+
+				"<br><p>"+c.getContent()+"</p><br>");
+	}
 }
 
 %>
