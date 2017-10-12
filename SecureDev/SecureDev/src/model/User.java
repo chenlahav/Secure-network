@@ -8,7 +8,6 @@ package model;
 public class User {
 	 
 	private String username;
-	private String password;
 	private String id;
 	private String email;
 	private String firstName;
@@ -19,11 +18,10 @@ public class User {
 	private boolean isAdmin;
 	private boolean isProfileImage;
 
-	public User(String username, String password, String id, String email, String firstName, String lastName,
+	public User(String username, String id, String email, String firstName, String lastName,
 			String bday, String gender,String telephone,boolean isProfileImage) {
 		super();
 		this.username = username;
-		this.password = password;
 		this.id = id;
 		this.email = email;
 		this.firstName = firstName;
@@ -58,10 +56,9 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public User(String username, String password)
+	public User(String username)
 	{
 		this.username = username;
-		this.password = password;
 	}
 
 	public String getUsername() {
@@ -71,15 +68,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getId() {

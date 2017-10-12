@@ -37,8 +37,6 @@ public class ProfileController extends HttpServlet {
 		String first_name = request.getParameter("first name");
 		String last_name = request.getParameter("last name");
 		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String hashedPassword = authenticator.toSha256(password);
 		String email = request.getParameter("email");
 		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");
@@ -46,8 +44,6 @@ public class ProfileController extends HttpServlet {
 			userToEdit.setFirstName(first_name);
 		if(last_name!=null)
 			userToEdit.setLastName(last_name);
-		if(password!=null)
-			userToEdit.setPassword(hashedPassword);
 		if(email!=null)
 			userToEdit.setEmail(email);
 		if(bdate!=null)
@@ -71,10 +67,7 @@ public class ProfileController extends HttpServlet {
 		request.getRequestDispatcher("/error.jsp");
 		request.setAttribute("error", "not in session");
 	}
-/*	if(creator.IsAdmin() == null){
-	request.getRequestDispatcher("/error.jsp");
-	request.setAttribute("error", "You access this page");
-}*/
+	
 	request.getRequestDispatcher("/Profile.jsp").forward(request, response);
 }
 }

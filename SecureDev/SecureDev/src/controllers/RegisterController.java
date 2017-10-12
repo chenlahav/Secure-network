@@ -58,9 +58,9 @@ public class RegisterController extends HttpServlet{
 		}else{
 			isProfileImage = false;
 		}
-		User newUser= new User(username,hashedPassword,id,email,first_name,last_name,bdate,gender,telephone,isProfileImage);
+		User newUser= new User(username,id,email,first_name,last_name,bdate,gender,telephone,isProfileImage);
 		UserRepository rep = new UserRepository();
-		String result = rep.addUser(newUser);
+		String result = rep.addUser(newUser,hashedPassword);
 	
 		RequestDispatcher rd = null;
  		

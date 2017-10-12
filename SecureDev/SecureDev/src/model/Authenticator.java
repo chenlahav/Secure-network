@@ -13,14 +13,15 @@ public class Authenticator {
 	public String authenticate(String username, String password) 
 	{
 		String hashedPassword = this.toSha256(password);
-		User user_to_authenticate = new User(username, hashedPassword/*password*/);
+		User user_to_authenticate = new User(username);
 		UserRepository userrep = new UserRepository();
-		String result = userrep.userAuthenticator(user_to_authenticate);
+		String result = userrep.userAuthenticator(user_to_authenticate,hashedPassword);
 		return result;
 	}
 	
 	public String toSha256(String password) {
-		String hashed = org.apache.commons.codec.digest.DigestUtils.sha256Hex(password);   
+		String hardPassword = password+"j7pHco4!t5L9S";
+		String hashed = org.apache.commons.codec.digest.DigestUtils.sha256Hex(hardPassword);   
 		return hashed;
 	}
 }

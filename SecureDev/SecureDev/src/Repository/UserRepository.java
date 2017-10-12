@@ -18,7 +18,7 @@ public class UserRepository {
 		super();
 	}
 	
-	public String addUser(User newUser){
+	public String addUser(User newUser,String hashedPassword){
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
@@ -26,7 +26,7 @@ public class UserRepository {
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, newUser.getId());
 			stmt.setString(2, newUser.getUsername());
-			stmt.setString(3, newUser.getPassword());
+			stmt.setString(3, hashedPassword);
 			stmt.setString(4, newUser.getFirstName());
 			stmt.setString(5, newUser.getLastName());
 			stmt.setString(6,newUser.getEmail());
@@ -97,7 +97,7 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
+				User userRequested= new User(rs.getString("username"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
 				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				return userRequested;
 			} else {
@@ -119,7 +119,7 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
+				User userRequested= new User(rs.getString("username"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
 				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				return userRequested;
 			} else {
@@ -141,7 +141,7 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery();
 			List<User> listOfUsers =  new ArrayList<>();
 			while (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
+				User userRequested= new User(rs.getString("username"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
 				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				listOfUsers.add(userRequested);
 			  }
@@ -152,14 +152,14 @@ public class UserRepository {
 		 }
 	}
 	
-	public String userAuthenticator(User user){
+	public String userAuthenticator(User user,String password){
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
 			String sql= "select * from tblusers where username=? and password=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getUsername());
-			stmt.setString(2, user.getPassword());
+			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				return "success";
@@ -181,7 +181,7 @@ public class UserRepository {
 			ResultSet rs = stmt.executeQuery(sql);
 			List<User> allUsers = new ArrayList<>();
 			while (rs.next()) {
-				User userRequested= new User(rs.getString("username"), rs.getString("password"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
+				User userRequested= new User(rs.getString("username"), rs.getString("id"), rs.getString("email"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("birthOfDate"), rs.getString("gender"),rs.getString("telephoneNumber"),rs.getBoolean("isProfileImage"));
 				userRequested.setAdmin(rs.getBoolean("isAdmin"));
 				allUsers.add(userRequested);
 			}
