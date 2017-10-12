@@ -14,7 +14,7 @@
 <body>
 <jsp:include page="FirstHeader.jsp"></jsp:include>
 
-	<form action="RegisterController" method="post">
+	<form action="RegisterController" method="post" enctype="multipart/form-data">
 		<div class="registration">
 				<div class="formFields">
 					<div class="modal-header">

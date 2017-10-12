@@ -17,9 +17,10 @@ public class User {
 	private String gender;
 	private String telephone;
 	private boolean isAdmin;
+	private boolean isProfileImage;
 
 	public User(String username, String password, String id, String email, String firstName, String lastName,
-			String bday, String gender,String telephone) {
+			String bday, String gender,String telephone,boolean isProfileImage) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -30,8 +31,17 @@ public class User {
 		this.Bday = bday;
 		this.gender = gender;
 		this.telephone = telephone;
+		this.isProfileImage = isProfileImage;
 	}
 	
+	public boolean getisProfileImage() {
+		return isProfileImage;
+	}
+
+	public void setProfileImage(boolean isProfileImage) {
+		this.isProfileImage = isProfileImage;
+	}
+
 	public String getTelephone() {
 		return telephone;
 	}
