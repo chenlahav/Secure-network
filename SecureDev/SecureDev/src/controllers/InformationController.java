@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Repository.CommentsRepository;
 import Repository.EventRepository;
 import Repository.PostRepository;
 import Repository.UserRepository;
-import model.Comment;
 import model.Post;
 import model.User;
 import model.Event;

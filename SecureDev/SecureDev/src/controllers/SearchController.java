@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Repository.UserRepository;
 import database.Database;
-import model.Authenticator;
 import model.User;
 
 public class SearchController extends HttpServlet{
@@ -24,7 +23,6 @@ public class SearchController extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Authenticator authenticator = new Authenticator();
 		try {
 			Database.getInstance().init();
 		} catch (ClassNotFoundException | SQLException e) {

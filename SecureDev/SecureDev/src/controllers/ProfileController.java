@@ -1,21 +1,13 @@
 package controllers;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Repository.EventRepository;
-import Repository.PostRepository;
+
 import Repository.UserRepository;
-import database.Database;
-import model.Authenticator;
-import model.Event;
-import model.Post;
 import model.User;
 
 public class ProfileController extends HttpServlet {
@@ -26,17 +18,16 @@ public class ProfileController extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
-		Authenticator authenticator = new Authenticator();
 		UserRepository ur = new UserRepository();
 		User userToEdit = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(userToEdit == null){
 			request.getRequestDispatcher("/error.jsp");
 			request.setAttribute("error", "not in session");
 		}
-		String id= userToEdit.getId();
+		//String id= userToEdit.getId();
 		String first_name = request.getParameter("first name");
 		String last_name = request.getParameter("last name");
-		String username = request.getParameter("username");
+		//String username = request.getParameter("username");
 		String email = request.getParameter("email");
 		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");

@@ -8,11 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Repository.EventRepository;
-import Repository.PostRepository;
 import Repository.UserRepository;
-import model.Event;
-import model.Post;
 import model.User;
 
 public class AllUsersController extends HttpServlet {
