@@ -55,6 +55,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("bdate", user.getBday());
 			session.setAttribute("gender", user.getGender());
 			session.setAttribute("isAdmin",user.isAdmin());
+			session.setAttribute("ProfilePicture",user.getPathProfilePic());
 			rd = request.getRequestDispatcher("/Profile.jsp");
 		} 
 		else

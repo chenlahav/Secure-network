@@ -160,8 +160,12 @@ public class UserRepository {
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getPassword());
-			stmt.executeQuery();
-			return "success";
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return "success";
+			}else{
+				return "SQL ERROR";
+			}
 		   }catch (Exception e){
 				e.printStackTrace();
 				return "SQL ERROR";

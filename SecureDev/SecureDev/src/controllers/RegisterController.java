@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import Repository.UserRepository;
@@ -49,19 +50,35 @@ public class RegisterController extends HttpServlet{
 		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");
 		String telephone = request.getParameter("telephone");
-		boolean isProfileImage = storeProfileImage(request.getPart("img"),id);
-		User newUser= new User(username,hashedPassword/*password*/,id,email,first_name,last_name,bdate,gender,telephone,isProfileImage);
+		Part file = request.getPart("img");
+		String contentType = file.getContentType();
+		boolean isProfileImage;
+		if(contentType.equals("image/jpeg")){
+			isProfileImage = storeProfileImage(file,id);;
+		}else{
+			isProfileImage = false;
+		}
+		User newUser= new User(username,hashedPassword,id,email,first_name,last_name,bdate,gender,telephone,isProfileImage);
 		UserRepository rep = new UserRepository();
 		String result = rep.addUser(newUser);
-		
 	
-		
 		RequestDispatcher rd = null;
  		
 		if (result.equals("success")) 
 		{
-			rd = request.getRequestDispatcher("/Profile.jsp");
-			request.setAttribute("user", newUser);
+			UserRepository ur = new UserRepository();
+			User user = ur.getUserByUsername(username);
+			HttpSession session = request.getSession();
+			session.setAttribute("username", user.getUsername());
+			session.setAttribute("userID", user.getId());
+			session.setAttribute("firstname", user.getFirstName());
+			session.setAttribute("lastname", user.getLastName());
+			session.setAttribute("email", user.getEmail());
+			session.setAttribute("bdate", user.getBday());
+			session.setAttribute("gender", user.getGender());
+			session.setAttribute("isAdmin",user.isAdmin());
+			session.setAttribute("ProfilePicture",user.getPathProfilePic());
+			rd = request.getRequestDispatcher("/Home.jsp");
 		} 
 		else
 		{

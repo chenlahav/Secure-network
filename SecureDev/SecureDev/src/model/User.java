@@ -129,5 +129,13 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
+	public String getPathProfilePic(){
+		if(isProfileImage){
+			return "Images\\ProfileImage\\"+getId()+".jpg";
+		}else{
+			return "Images\\ProfileImage\\generic.jpg";
+		}
+	}
 
 }
