@@ -62,34 +62,30 @@ for (Post p: posts){
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
-    "<h3>"+p.getTitle()+"</h3>"+
-    "<br><p>"+p.getContent()+"</p><br>"+
-    "<form id=\"\" class=\"\" action=\"Comment\" method=\"post\">"+
-    "<div class=\"row\">"+
-    "<div class=\"col-sm-12\">"+
-    "<div class=\"panel panel-default text-left\">"+
-    "<div class=\"panel-body\">"+
-	"<input name = \"content\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
-	"<input type=\"hidden\" name=\"postid\" value="+p.getId()+"></input>"+
-	"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\"></input>"+    
-    "</div>"+
-	"</div>"+
-    "</div>"+
-	"</div>"+
-    "</form>");
+    "<h3><strong>"+p.getTitle()+"</strong></h3>"+
+    "<p>"+p.getContent()+"</p><br>"+
+	"<p style=\"float: left;\"><strong>Comments: </strong><p><br>");
 	for(Comment c:comments){
 		if(p.getId()==c.getPostId())
 		out.print("<div class=\"well\">"+
-			    "<br><p>"+c.getDate()+"  "+c.getTime()+"</p><br>"+
-				"<br><p>"+"By: "+c.getCreator().getUsername()+"</p><br>"+
-				"<div class=\"panel panel-default text-left\">"+
-			    "<div class=\"panel-body\">"+
-				"<br><p>"+c.getContent()+"</p><br>"+
-				"</div>"+
-				"</div>"+
+				"<p>"+c.getContent()+"</p>"+
+			    "<p style=\"float: right;\"><font size=\"1.7\">"+c.getDate()+"  "+c.getTime()+"</font></p>"+
+				"<p style=\"float: left;\"><font size=\"1.7\">By: "+c.getCreator().getUsername()+"</font></p>"+
 				"</div>");
 	}
-	out.print("</div>"+"</div>"+"</div>");
+	out.print("<form id=\"\" class=\"\" action=\"Comment\" method=\"post\">"+
+		    "<div class=\"row\">"+
+		    "<div class=\"col-sm-12\">"+
+		    "<div class=\"panel panel-default text-left\">"+
+		    "<div class=\"panel-body\">"+
+			"<input name = \"content\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
+			"<input type=\"hidden\" name=\"postid\" value="+p.getId()+"></input>"+
+			"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\"></input>"+    
+		    "</div>"+
+			"</div>"+
+		    "</div>"+
+			"</div>"+
+		    "</form>"+"</div>"+"</div>"+"</div>");
 }
 
 %>
