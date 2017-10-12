@@ -14,7 +14,7 @@ public class LogoutController {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.getSession().invalidate();
 		Database.getInstance().closeConnection();
-		response.sendRedirect("/login");
+		response.sendRedirect("/login.jsp");
 	}
 
 }

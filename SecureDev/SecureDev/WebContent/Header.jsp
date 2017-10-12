@@ -25,7 +25,7 @@
       <li><a href="/SecureDev/Admin">Admin</a></li>
       <li><a href="/SecureDev/Information">Info</a></li>
       <li><a href="/SecureDev/AllUsers">AllUsers</a></li>
-      <li><a href="#">LogOut</a></li>
+      <li><a href="/SecureDev/login.jsp">LogOut</a></li>
 
     </ul>
     <form class="navbar-form navbar-left" action="Search" method="post">
