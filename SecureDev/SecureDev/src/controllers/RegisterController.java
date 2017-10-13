@@ -44,8 +44,8 @@ public class RegisterController extends HttpServlet{
 			e.printStackTrace();
 		}
 		String id= request.getParameter("id");
-		String first_name = request.getParameter("first name");
-		String last_name = request.getParameter("last name");
+		String first_name = request.getParameter("firstname");
+		String last_name = request.getParameter("lastname");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String hashedPassword = authenticator.toSha256(password);
@@ -65,7 +65,7 @@ public class RegisterController extends HttpServlet{
 		String contentType = file.getContentType();
 		boolean isProfileImage;
 		if(contentType.equals("image/jpeg")){
-			isProfileImage = storeProfileImage(file,id);;
+			isProfileImage = storeProfileImage(file,id);
 		}else{
 			isProfileImage = false;
 		}
@@ -86,6 +86,7 @@ public class RegisterController extends HttpServlet{
 			session.setAttribute("email", user.getEmail());
 			session.setAttribute("bdate", user.getBday());
 			session.setAttribute("gender", user.getGender());
+			session.setAttribute("telephone", user.getTelephone());
 			session.setAttribute("isAdmin",user.isAdmin());
 			session.setAttribute("ProfilePicture",user.getPathProfilePic());
 			rd = request.getRequestDispatcher("/Home.jsp");
@@ -97,7 +98,8 @@ public class RegisterController extends HttpServlet{
 		
 		rd.forward(request, response);
 	}
-	private boolean storeProfileImage(Part filePart, String id){
+	
+	public boolean storeProfileImage(Part filePart, String id){
 		try{
 		 InputStream  inputStream = filePart.getInputStream();
          byte[] buffer = new byte[inputStream.available()];
@@ -112,7 +114,6 @@ public class RegisterController extends HttpServlet{
 		return false;
 		}
 	}
-	
 	
 	public boolean inputvalidation(String id ,String firstName,String lastName, String userName,String password,String email,String bday, String gender, String telephone){
 		Pattern p;
