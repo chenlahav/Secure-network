@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,6 +53,14 @@ public class RegisterController extends HttpServlet{
 		String bdate = request.getParameter("bdate");
 		String gender = request.getParameter("gender");
 		String telephone = request.getParameter("telephone");
+		
+		RequestDispatcher rd = null;
+		if(inputvalidation(id, first_name, last_name, username, password, email, bdate, gender, telephone) == false){
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
+			}
+		
 		Part file = request.getPart("img");
 		String contentType = file.getContentType();
 		boolean isProfileImage;
@@ -62,7 +73,6 @@ public class RegisterController extends HttpServlet{
 		UserRepository rep = new UserRepository();
 		String result = rep.addUser(newUser,hashedPassword);
 	
-		RequestDispatcher rd = null;
  		
 		if (result.equals("success")) 
 		{
@@ -101,5 +111,65 @@ public class RegisterController extends HttpServlet{
 		}catch(Exception e){
 		return false;
 		}
+	}
+	
+	
+	public boolean inputvalidation(String id ,String firstName,String lastName, String userName,String password,String email,String bday, String gender, String telephone){
+		Pattern p;
+		Matcher m;
+		boolean b;
+		
+		//check Id field
+		p = Pattern.compile("^[0-9]{9}$");
+		m = p.matcher(id);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check first name field
+		p = Pattern.compile("^[a-zA-Z]{2,20}$");
+		m = p.matcher(firstName);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check last name field
+		p = Pattern.compile("^[a-zA-Z]{2,20}$");
+		m = p.matcher(lastName);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check last user name field
+		p = Pattern.compile("^[a-zA-Z0-9]{2,12}$");
+		m = p.matcher(userName);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check password field	
+		p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}");
+		m = p.matcher(password);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check email field	
+		p = Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
+		m = p.matcher(email);
+		b = m.matches();
+		if(b==false) return false;
+		
+		//check birth date field	
+		p = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$");
+		m = p.matcher(bday);
+		b = m.matches();
+		
+		//check gender field	
+		//
+		if(!Objects.equals(gender, "Male")&&(!Objects.equals(gender, "Female"))) return false;
+		
+		//check telephone field	
+		p = Pattern.compile("\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})");
+		m = p.matcher(telephone);
+		b = m.matches();
+		if(b==false) return false;
+		
+		return true;
 	}
 }
