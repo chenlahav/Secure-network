@@ -1,6 +1,7 @@
 /**
  * 
  */
+
 function validateRegistrationForm(){
 //validate the ID number
 var id = document.registrationForm.id.value;
@@ -19,7 +20,7 @@ if(id == null || id==""){
         }
 //validate first name
 var name = document.registrationForm.firstname.value;
-var onlyletters = /^[a-zA-Z]*$/;   
+var onlyletters = /^[a-zA-Z]{2,20}$/;   
 if (name == null || name=="")
     {
         alert("Please fill your first name");
@@ -27,7 +28,7 @@ if (name == null || name=="")
     }
 else
     if(!name.match(onlyletters)){
-            alert("Please enter your name with only letters");
+            alert("Please enter your name with only 2-20 letters");
             return false;
         }
 //validate last name
@@ -39,11 +40,11 @@ if (lastname == null || lastname=="")
     }
 else
     if(!lastname.match(onlyletters)){
-            alert("Please enter your last name with only letters");
+            alert("Please enter your last name with only 2-20 letters");
             return false;
         }
 //validate user name
-var letterNumber = /^[0-9a-zA-Z]+$/; 
+var letterNumber = /^[0-9a-zA-Z]{2,12}$/; 
 var username = document.registrationForm.username.value;
 if (username == null || username=="")
     {
@@ -52,9 +53,10 @@ if (username == null || username=="")
     }
 else
     if(!username.match(letterNumber)){
-            alert("Please enter your user name with only letters and numbers");
+            alert("Please enter your user name with only 2-12 letters and numbers");
             return false;
         }
+var passreg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}$/;
 var password = document.registrationForm.password.value;
 if (password == null || password=="")
     {
@@ -62,11 +64,11 @@ if (password == null || password=="")
         return false;
     }
 else
-    if(!password.match(letterNumber)){
-            alert("Please enter your password  with only letters and numbers");
+    if(!password.match(passreg)){
+            alert("Please enter your password  with 8-16 charachters, at least one sign and at least one capital letter");
             return false;
         }
-var onlynumbers = /^[0-9]+$/; 
+var bdayreg = /^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$/; 
 var bdate = document.registrationForm.bdate.value;
 if (bdate == null || bdate=="")
     {
@@ -74,7 +76,7 @@ if (bdate == null || bdate=="")
         return false;
     }
 else
-    if(!bdate.match(onlynumbers)){
+    if(!bdate.match(bdayreg)){
             alert("Please enter your Birth Date with only numbers");
             return false;
         }
