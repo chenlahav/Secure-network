@@ -1,10 +1,12 @@
 package controllers;
 import java.io.IOException;
+import java.util.ArrayList;
 //import java.nio.file.DirectoryNotEmptyException;
 //import java.nio.file.Files;
 //import java.nio.file.NoSuchFileException;
 //import java.nio.file.Path;
 //import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.Part;
 
+import Repository.EventRepository;
 import Repository.UserRepository;
+import model.Event;
 import model.User;
 
 public class ProfileController extends HttpServlet {
@@ -79,6 +83,19 @@ public class ProfileController extends HttpServlet {
 		request.setAttribute("error", "not in session");
 	}
 	
+	EventRepository er = new EventRepository();
+	List<Event> events = er.getLatestEvents();
+	if(events.size()!=0){
+		if(events.size()<=3){
+			request.setAttribute("latestEvents", events);
+		}else{
+			List<Event> treeEvents = new ArrayList<>();
+			for(int i=0; i<3;i++){
+				treeEvents.add(events.get(i));
+			}
+			request.setAttribute("latestEvents", treeEvents);
+		}
+	}
 	request.getRequestDispatcher("/Profile.jsp").forward(request, response);
 }
 }

@@ -45,7 +45,7 @@ for (User user: users){
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
-    "<h3>"+user.getFirstName()+" "+user.getLastName()+"</h3>"+
+    "<h3><strong>"+user.getFirstName()+" "+user.getLastName()+"</strong></h3>"+
     "<br><p><strong>Username: </strong>"+user.getUsername()+"</p><br>"+
     "<p><strong>Email: </strong>"+user.getEmail()+"</p><br>"+
     "<p><strong>Telephone Number: </strong>"+user.getTelephone()+"</p><br>"+

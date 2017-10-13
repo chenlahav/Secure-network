@@ -14,7 +14,7 @@
 
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Information</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,44 +23,43 @@
 </head>
 <body>
 <jsp:include page="Header.jsp" />
-<div class="row">
-<div class="well">
-  <p><i class="">Hi ${sessionScope.firstname} ${sessionScope.lastname}</i></p><br>
-  <p>Here you can find all your posts and events you published</p>
-</div>
-</div>
-<div class="row">
-<div class="well">
-<p><i>Below you have your Posts: </i></p>
-</div>
-</div>
+
+  <br><h3><center>Here you can find all your posts and events you published</center></h3><br><br>
+
+<p><i><strong><center>Below you have your Posts: </center></strong></i></p>
+
+<center>
 <%
 	for (Post p:posts){
 		
 		if(nowConnected.getId().equals((p.getAuthor().getId()))){
-			out.print("<div class=\"row\">"+"<div class=\"col-sm-9\">"+
-				    "<div class=\"well\">"+
-				    "<h3>"+p.getTitle()+"</h3>"+
+			out.print("<div class=\"row\">"+"<div class=\"col-sm-20\">"+
+				    "<div class=\"well\" style=\"height: 220px; width: 550px;\">"+
+				    "<h3><strong>"+p.getTitle()+"</strong></h3>"+
 				    "<br><p>"+p.getContent()+"</p><br>"+"</div>"+"</div>"+"</div>");
 		}
 	}
 %>
-<div class="row">
-<div class="well">
-<p><i>Below you have your Events: </i></p>
+</center>
+
+<p><i><strong><center>Below you have your Events: </center></strong></i></p>
 </div>
 </div>
+<center>
 <%
 	for (Event e:events){
 		
 		if(nowConnected.getId().equals((e.getCreator().getId()))){
-			out.print("<div class=\"row\">"+"<div class=\"col-sm-9\">"+
-				    "<div class=\"well\">"+
-				    "<h3>"+e.getEvent_name()+"</h3>"+
-				    "<br><p>"+e.getDescription()+"</p><br>"+"</div>"+"</div>"+"</div>");
+			out.print("<div class=\"row\">"+"<div class=\"col-sm-20\">"+
+				    "<div class=\"well\" style=\"height: 220px; width: 550px;\">"+
+				    		"<h3><strong>"+e.getEvent_name()+"</strong></h3><br>"+
+				    	    "<p>"+e.getDescription()+"</p><br><br>"+
+				    	    "<p><strong>Location: </strong>"+e.getLocation()+",  <strong>Date: </strong>"+e.getDate()+",  <strong>Time: </strong>"+e.getTime()+"</p>"+
+				    "</div>"+"</div>"+"</div>");
 		}
 	}
 %>
+</center>
 <jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -54,6 +55,19 @@ public class EventController extends HttpServlet {
 		EventRepository pr = new EventRepository();
 		List<Event> allevents = pr.getAllEvents();
 		request.setAttribute("allevents", allevents);
+		EventRepository er = new EventRepository();
+		List<Event> events = er.getLatestEvents();
+		if(events.size()!=0){
+			if(events.size()<=3){
+				request.setAttribute("latestEvents", events);
+			}else{
+				List<Event> treeEvents = new ArrayList<>();
+				for(int i=0; i<3;i++){
+					treeEvents.add(events.get(i));
+				}
+				request.setAttribute("latestEvents", treeEvents);
+			}
+		}
 		request.getRequestDispatcher("/Events.jsp").forward(request, response);
 	}
 }

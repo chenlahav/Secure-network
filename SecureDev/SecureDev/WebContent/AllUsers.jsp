@@ -12,7 +12,7 @@
 
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>All Users</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -21,23 +21,25 @@
 </head>
 <body>
 <jsp:include page="Header.jsp" />
-<div class="row">
-<div class="well">
-  <p><i class="">Hi ${sessionScope.firstname} ${sessionScope.lastname}</i></p><br>
-  <p>Here you can find all users members in our community</p>
-</div>
-</div>
+
+  <br><h3><center>Here you can find all users members in our community</center></h3><br><br>
+<center>
 <%
 	for (User user:users){
-			out.print("<div class=\"row\">"+"<div class=\"col-sm-9\">"+
-				    "<div class=\"well\">"+
-				    "<h3>"+user.getFirstName()+"</h3>"+"<h3>"+user.getLastName()+"</h3>"+
-				    "<br><p>"+user.getEmail()+"</p><br>"+
-				    "<br><p>"+user.getBday()+"</p><br>"+
-				    "<br><p>"+user.getTelephone()+"</p><br>"+
+		if((!user.getUsername().equals("admin")&&(!user.getId().equals(session.getAttribute("userID"))))){
+			out.print("<div class=\"row\">"+"<div class=\"col-sm-20\">"+
+				    "<div class=\"well\" style=\"height: 440px; width: 440px;\">"+
+		    	    "<h3><strong>"+user.getFirstName()+" "+user.getLastName()+"</strong></h3>"+
+		    	    "<br><p><strong>Username: </strong>"+user.getUsername()+"</p><br>"+
+		    	    "<p><strong>Email: </strong>"+user.getEmail()+"</p><br>"+
+		    	    "<p><strong>Telephone Number: </strong>"+user.getTelephone()+"</p><br>"+
+		    	    "<p><strong>Gender: </strong>"+user.getGender()+"</p><br>"+
+		    	    "<p><strong>Birth Date: </strong>"+user.getBday()+"</p>"+
 				    "</div>"+"</div>"+"</div>");
 		}
+	}
 %>
+</center>
 <jsp:include page="Footer.jsp" />
 </body>
 </html>

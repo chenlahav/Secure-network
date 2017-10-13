@@ -30,7 +30,7 @@
     </ul>
     <form class="navbar-form navbar-left" action="Search" method="post">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search" name= "firstname">
+        <input type="text" class="form-control" placeholder="Search user by first name" name= "firstname">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>

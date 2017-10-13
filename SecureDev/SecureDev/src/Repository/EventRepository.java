@@ -149,5 +149,27 @@ public class EventRepository {
 		}
 		return "success";
 	}
+	
+	public List<Event> getLatestEvents() {
+		try{
+			Connection c = Database.getInstance().getConnection();
+			Statement stmt = null;
+			stmt = c.createStatement();
+			String sql="SELECT * FROM tblevents ORDER BY date;";
+			ResultSet rs = stmt.executeQuery(sql);
+			List<Event> allEvents = new ArrayList<>();
+			while (rs.next()) {
+				UserRepository ur = new UserRepository();
+				User creator = ur.getUserById(rs.getString("creatorid"));
+				Event eventRequested = new Event(rs.getString("eventname"), rs.getString("date"), rs.getString("time"), rs.getString("description"), rs.getString("location"), creator);
+				eventRequested.setId(rs.getInt("id"));
+				allEvents.add(eventRequested);
+			}
+			return allEvents;
+		 }catch (Exception e){
+				e.printStackTrace();
+				return new ArrayList<Event>();
+		 }
+	}
 }
 				
