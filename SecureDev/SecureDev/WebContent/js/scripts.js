@@ -56,7 +56,7 @@ else
             alert("Please enter your user name with only 2-12 letters and numbers");
             return false;
         }
-var passreg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}$/;
+var passreg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}$/;
 var password = document.registrationForm.password.value;
 if (password == null || password=="")
     {
@@ -68,7 +68,7 @@ else
             alert("Please enter your password  with 8-16 charachters, at least one sign and at least one capital letter");
             return false;
         }
-var bdayreg = /^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$/; 
+var bdayreg = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/; 
 var bdate = document.registrationForm.bdate.value;
 if (bdate == null || bdate=="")
     {
@@ -77,7 +77,7 @@ if (bdate == null || bdate=="")
     }
 else
     if(!bdate.match(bdayreg)){
-            alert("Please enter your Birth Date with only numbers");
+            alert("Please enter your Birth Date in format dd/mm/yyyy");
             return false;
         }
 }
