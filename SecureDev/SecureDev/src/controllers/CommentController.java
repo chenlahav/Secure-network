@@ -39,6 +39,7 @@ public class CommentController  extends HttpServlet {
 	 		if(inputValidator(newComment) == false){
 	 			request.getRequestDispatcher("/error.jsp");
 				request.setAttribute("error", "error while adding post");
+				return;
 	 		}
 			CommentsRepository cr = new CommentsRepository();
 			String result = cr.addComment(newComment);
