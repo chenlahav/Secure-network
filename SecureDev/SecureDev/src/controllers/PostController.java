@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +42,7 @@ public class PostController extends HttpServlet {
 			String time = strnow.substring(strnow.indexOf(" ")+1);
 			
 			Post newPost = new Post(title, content, author, date, time);
+	 		if(inputValidator(newPost) == false) return;
 	 		
 			PostRepository pr = new PostRepository();
 			String result = pr.addPost(newPost);
@@ -70,5 +73,21 @@ public class PostController extends HttpServlet {
 		request.setAttribute("allcomments",allComments);
 		
 		request.getRequestDispatcher("/Forum.jsp").forward(request, response);
+	}
+	
+	boolean inputValidator(Post post){
+		Pattern p;
+		Matcher m;
+		boolean b;
+		
+		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
+		m = p.matcher(post.getTitle());
+		b = m.matches();
+		
+		
+		m = p.matcher(post.getContent());
+		b = m.matches();
+		if(b==false) return false;
+		return true;
 	}
 }
