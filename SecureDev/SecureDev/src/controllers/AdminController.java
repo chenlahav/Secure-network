@@ -1,6 +1,11 @@
 package controllers;
 
 import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -57,6 +62,19 @@ public class AdminController extends HttpServlet {
 			if (uIdToDelete != null) {
 				User UserToDelete = ur.getUserById(uIdToDelete);
 				result = ur.deleteUser(UserToDelete);
+				if(UserToDelete.getisProfileImage()){		//remove the current image
+				try {
+					Path pathfile = Paths.get("WebContent/Images/ProfileImage/"+UserToDelete.getId()+".jpg");
+				    Files.delete(pathfile);
+				} catch (NoSuchFileException x) {
+				    System.err.format("%s: no such" + " file or directory%n", "WebContent/Images/ProfileImage/"+UserToDelete.getId()+".jpg" );
+				} catch (DirectoryNotEmptyException x) {
+				    System.err.format("%s not empty%n", "WebContent/Images/ProfileImage/"+UserToDelete.getId()+".jpg");
+				} catch (IOException x) {
+				    // File permission problems are caught here.
+				    System.err.println(x);
+				}
+			}
 			}
 			if (eIdToDelete != null) {
 				int id = Integer.parseInt(eIdToDelete);

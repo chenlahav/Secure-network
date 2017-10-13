@@ -59,7 +59,7 @@
 							</div>
 							
 							<div class="form-group">
-							<label for="telephone" class="label">Date of Birth</label>
+							<label for="telephone" class="label">Telephone Number</label>
 								<input type="text" name="telephone" class="form-control" placeholder="Telephone Number"/>
 							</div>
 							

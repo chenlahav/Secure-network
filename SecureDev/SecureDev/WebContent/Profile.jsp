@@ -85,9 +85,10 @@
 							</div>
 							 
 							<div class="form-group">
-								<label for="image" class="label">Add your image</label>
-								<input type="file" name="img" class="form-control" />
-							</div>  							
+							<label for="telephone" class="label">Telephone Number</label>
+								<input type="text" name="telephone" class="form-control" placeholder="Telephone Number" value=${sessionScope.telephone}></input>
+							</div>
+							  							
 							<div class="form-group">
 								<input type="submit" class="btn btn-block btn-lg btn-primary" value="Save Changes"/>
 							</div>

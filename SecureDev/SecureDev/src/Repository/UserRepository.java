@@ -46,17 +46,16 @@ public class UserRepository {
 		try{
 			Connection c = Database.getInstance().getConnection();
 			PreparedStatement stmt ;
-			String sql= "UPDATE tblusers SET username=?,firstName=?,lastName=?,email=?,birthOfDate=?,gender=?, telephoneNumber=?, isAdmin=? WHERE id=?;";
+			String sql= "UPDATE tblusers SET username=?, firstName=?, lastName=?, email=?, birthOfDate=?, telephoneNumber=?, isAdmin=? WHERE id=?;";
 			stmt = c.prepareStatement(sql);
 			stmt.setString(1, user.getUsername());
 			stmt.setString(2, user.getFirstName());
 			stmt.setString(3, user.getLastName());
 			stmt.setString(4, user.getEmail());
 			stmt.setString(5, user.getBday());
-			stmt.setString(6, user.getGender());
-			stmt.setString(7, user.getTelephone());
-			stmt.setBoolean(8, user.isAdmin());
-			stmt.setString(9, user.getId());
+			stmt.setString(6, user.getTelephone());
+			stmt.setBoolean(7, user.isAdmin());
+			stmt.setString(8, user.getId());
 			stmt.executeUpdate();
 			return "success";
 		}catch (Exception e) {
