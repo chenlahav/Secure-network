@@ -3,6 +3,8 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +28,6 @@ public class CommentController  extends HttpServlet {
 		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(creator != null){
 			String content = request.getParameter("content");
-			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			String strnow = dtf.format(now);
@@ -35,7 +36,10 @@ public class CommentController  extends HttpServlet {
 			String idS = (String)request.getParameter("postid");
 			int postId = Integer.parseInt(idS);
 			Comment newComment = new Comment(time, date, content, postId, creator);
-	 		
+	 		if(inputValidator(newComment) == false){
+	 			request.getRequestDispatcher("/error.jsp");
+				request.setAttribute("error", "error while adding post");
+	 		}
 			CommentsRepository cr = new CommentsRepository();
 			String result = cr.addComment(newComment);
 			
@@ -52,5 +56,17 @@ public class CommentController  extends HttpServlet {
 			request.setAttribute("error", "not in session");	
 		}
 		
+	}
+	
+	boolean inputValidator(Comment comment){
+		Pattern p;
+		Matcher m;
+		boolean b;
+		
+		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
+		m = p.matcher(comment.getContent());
+		b = m.matches();
+		if(b==false) return false;
+		return true;
 	}
 }
