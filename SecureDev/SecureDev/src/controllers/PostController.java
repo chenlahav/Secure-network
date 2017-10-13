@@ -42,7 +42,12 @@ public class PostController extends HttpServlet {
 			String time = strnow.substring(strnow.indexOf(" ")+1);
 			
 			Post newPost = new Post(title, content, author, date, time);
-	 		if(inputValidator(newPost) == false) return;
+			
+	 		if(inputValidator(newPost) == false){
+	 			request.getRequestDispatcher("/error.jsp");
+				request.setAttribute("error", "error while adding post");
+				return;
+	 		}
 	 		
 			PostRepository pr = new PostRepository();
 			String result = pr.addPost(newPost);
@@ -83,6 +88,7 @@ public class PostController extends HttpServlet {
 		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
 		m = p.matcher(post.getTitle());
 		b = m.matches();
+		if(b==false) return false;
 		
 		
 		m = p.matcher(post.getContent());
