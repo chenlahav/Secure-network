@@ -103,8 +103,6 @@ return true;
 function validatepostForm(){
 	var newPTitle = document.postForm.title.value;
 	var newP = document.postForm.content.value;
-	var onlyletters = /^[a-zA-Z]{2,20}$/;   
-	var regex = /^([A-Za-z0-9\s\d])*(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9])+([\-\.]{1}[a-z0-9]+)*(\.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?([A-Za-z0-9\s\d])+$/;
     if(newP == null || newP=="" ){
 		alert("Please add your content");
 		return false;
@@ -112,27 +110,14 @@ function validatepostForm(){
 	if(newPTitle == null || newPTitle==""){
 		alert("Please add your title");
 		return false;
-	}else
-	if (!newPTitle.match(regex)){
-		alert("Please fill only letters in the title");
-		return false;
-	}else
-		if (!newP.match(regex)){
-			alert("Please fill only regular Characheters in the post");
-			return false;
-		}
+	}
 	return true;
 
 }
 function validatecommentForm(){
 	var newc = document.commentForm.content.value;
-	var regex = /^([A-Za-z0-9\s\d])*(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9])+([\-\.]{1}[a-z0-9]+)*(\.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?([A-Za-z0-9\s\d])+$/;
     if(newC == null || newC=="" ){
 		alert("Please add your content");
-		return false;
-	}else
-	if (!newC.match(regex)){
-		alert("Please fill only regular Characheters");
 		return false;
 	}
 	return true;
@@ -140,16 +125,10 @@ function validatecommentForm(){
 }
 function validateeventForm(){
 	var event_name = document.eventForm.event_name.value;
-	var onlyletters = /^[a-zA-Z]{2,20}$/;   
-	var regex = /^([A-Za-z0-9\s\d])*(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([a-z0-9])+([\-\.]{1}[a-z0-9]+)*(\.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?([A-Za-z0-9\s\d])+$/;
     if(event_name == null || event_name=="" ){
 		alert("Please add event name");
 		return false;
-	}else
-	if (!event_name.match(regex)){
-			alert("Please fill only letters in the event name");
-			return false;
-		}
+	}
 	var date = document.eventForm.date.value;
 	var datereg = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
 	if (date == null || date=="")
@@ -158,7 +137,7 @@ function validateeventForm(){
         return false;
     }
 else
-    if(!bdate.match(datereg)){
+    if(!date.match(datereg)){
             alert("Please enter the event Date in format dd/mm/yyyy");
             return false;
         }
@@ -178,19 +157,11 @@ else
 	if(description == null || description=="" ){
 		alert("Please add the event description");
 		return false;
-	}else
-	if (!description.match(regex)){
-		alert("Please fill only regular Characheters in the description");
-		return false;
 	}
 	var letterNumber = /^[0-9a-zA-Z]{2,12}$/; 
 	var location = document.eventForm.location.value;
 	if(location == null || location=="" ){
 		alert("Please add the event description");
-		return false;
-	}else
-	if (!location.match(letterNumber)){
-		alert("Please fill only regular only letters and numbers in the location");
 		return false;
 	}
 
