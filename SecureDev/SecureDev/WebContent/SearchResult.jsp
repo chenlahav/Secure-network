@@ -38,11 +38,7 @@
 <%
 for (User user: users){
 	out.print("<div class=\"row\">"+
-	"<div class=\"col-sm-3\">"+
-	"<div class=\"well\">"+
-	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
-	"</div>"+
-	"</div>"+
+
 	"<div class=\"col-sm-9\">"+
     "<div class=\"well\">"+
     "<h3><strong>"+user.getFirstName()+" "+user.getLastName()+"</strong></h3>"+

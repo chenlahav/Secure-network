@@ -4,16 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="js\sc.js" ></script>
 <link rel="stylesheet" href="Reg.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/scripts.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Registration</title>
 </head>
 <body>
 <jsp:include page="FirstHeader.jsp"></jsp:include>
+
 
 	<form name="registrationForm" action="RegisterController" method="post" enctype="multipart/form-data" onsubmit="return validateRegistrationForm()">
 		<div class="registration">
@@ -80,7 +81,9 @@
 		</div>
 
 	</form>
+
 <jsp:include page="Footer.jsp"></jsp:include>
 
 </body>
+
 </html>

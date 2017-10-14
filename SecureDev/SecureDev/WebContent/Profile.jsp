@@ -9,6 +9,7 @@
 <head>
   <title>My Profile</title>
   <meta charset="utf-8">
+  <script src="js\sc.js" ></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -52,7 +53,7 @@
         <div class="col-sm-9">
           <div class="well">
           	<button name="editInformation" onclick="EditInformation()">Edit my profile</button>
-            <form id="EditInformationForm" action="Profile" method="post">
+            <form name="editProfile" id="EditInformationForm" action="Profile" method="post" onsubmit="return validateProfileForm()">
 				<div class="registration">
 				<div class="formFields">
 					<div class="modal-header">
@@ -62,12 +63,12 @@
 							
 							<div class="form-group">
 								<label for="firstName" class="label">First Name</label>
-								<input type="text" name="first name" class="form-control" placeholder="First name" value=${sessionScope.firstname}></input>
+								<input type="text" name="firstname" class="form-control" placeholder="First name" value=${sessionScope.firstname}></input>
 							</div>
 							
 							<div class="form-group">
 								<label for="lastname" class="label">Last Name</label>
-								<input type="text" name="last name" class="form-control" placeholder="Last name" value=${sessionScope.lastname}></input>
+								<input type="text" name="lastname" class="form-control" placeholder="Last name" value=${sessionScope.lastname}></input>
 							</div>
 							
 							<div class="form-group">
@@ -91,7 +92,7 @@
 							</div>
 							  							
 							<div class="form-group">
-								<input type="submit" class="btn btn-block btn-lg btn-primary" value="Save Changes"/>
+								<input onclick="validateProfileForm()" type="submit" class="btn btn-block btn-lg btn-primary" value="Save Changes"/>
 							</div>
 						</div>
 				</div>
@@ -100,29 +101,9 @@
           </div>
         </div>
       </div>
-      <div class="row">
+     <div class="row">
         <div class="col-sm-9">
-          <div class="well">
-            <p>Just Forgot that I had to mention something about someone to someone about how I forgot something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="well">
-            <p>Just Forgot that I had to mention something about someone to someone about how I forgot something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-9">
-          <div class="well">
-            <p>Just Forgot that I had to mention something about someone to someone about how I forgot something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-          </div>
-        </div>
-      </div>     
-    </div>
-    <div class="col-sm-2 well">
+          <div class="well">    
       <p>Upcoming Events:</p>
       <%
       	List<Event> events = (List<Event>) request.getAttribute("latestEvents");
@@ -133,13 +114,13 @@
 
       }
       %>
+      </div>
+      </div>
+      </div>
     </div>	
   </div>
 </div>
-
 <jsp:include page="Footer.jsp"></jsp:include>
-
-</footer>
 
 </body>
 <script type="text/javascript">

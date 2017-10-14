@@ -4,6 +4,8 @@
 <%@page import="java.util.List"%>
 <%@page import="model.Post"%>
 <%@page import="model.Comment"%>
+<%@page import="model.Event"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	List<Post> posts = (List<Post>) request.getAttribute("allposts");
@@ -19,6 +21,7 @@
 <title>Forum Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js\sc.js" ></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -35,7 +38,7 @@
       </div>
     </div>
     <div class="col-sm-7">
-     <form id="postForm" class="postForm" action="Forum" method="post">
+     <form name="postForm" onsubmit="return validatepostForm()" id="postForm" class="postForm" action="Forum" method="post">
       <div class="row">
         <div class="col-sm-12">
           <div class="panel panel-default text-left">
@@ -43,7 +46,7 @@
             <h3>Create new post</h3><br>
 			<input name = "title" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add the Post title"><br>
 			<input contenteditable="true" name = "content" class="newPost panel-body col-sm-12 panel panel-default text-left" type="text" placeholder="Please add your post"><br>
-			<input class="submitPost btn btn-default btn-sm" type="submit" value="submit">    
+			<input onclick="validatepostForm()" class="submitPost btn btn-default btn-sm" type="submit" value="submit">    
             </div>
           </div>
         </div>
@@ -57,7 +60,6 @@ for (Post p: posts){
 	"<p>"+p.getAuthor().getUsername()+"</p>"+
 	"<p>"+p.getDate()+"</p>"+
 	"<p>"+p.getTime()+"</p>"+
-	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
 	"</div>"+
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
@@ -73,14 +75,14 @@ for (Post p: posts){
 				"<p style=\"float: left;\"><font size=\"1.7\">By: "+c.getCreator().getUsername()+"</font></p>"+
 				"</div>");
 	}
-	out.print("<form id=\"\" class=\"\" action=\"Comment\" method=\"post\">"+
+	out.print("<form name=\"commentForm\" id=\"\" class=\"\" action=\"Comment\" method=\"post\" onsubmit=\"return validatecommentForm()\">"+
 		    "<div class=\"row\">"+
 		    "<div class=\"col-sm-12\">"+
 		    "<div class=\"panel panel-default text-left\">"+
 		    "<div class=\"panel-body\">"+
 			"<input name = \"content\" class=\"newC panel-body col-sm-12 panel panel-default text-left\" type=\"text\" placeholder=\"Please add your comment here\">"+"<br>"+
 			"<input type=\"hidden\" name=\"postid\" value="+p.getId()+"></input>"+
-			"<input class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\"></input>"+    
+			"<input onclick=\"validatecommentForm()\" class=\"submitPost btn btn-default btn-sm\" type=\"submit\" value=\"submit\"></input>"+    
 		    "</div>"+
 			"</div>"+
 		    "</div>"+
@@ -90,26 +92,14 @@ for (Post p: posts){
 
 %>
  </div>
-    <div class="col-sm-2 well">
-      <div class="thumbnail">
-        <p>Upcoming Events:</p>
-        <img src="paris.jpg" alt="Paris" width="400" height="300">
-        <p><strong>Paris</strong></p>
-        <p>Fri. 27 November 2015</p>
-        <button class="btn btn-primary">Info</button>
-      </div>      
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-  </div>
-</div>
 
+</div>
 <jsp:include page="Footer.jsp"></jsp:include>
 
-
+</div>
+</Footer>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>

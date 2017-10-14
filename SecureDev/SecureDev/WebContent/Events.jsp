@@ -17,6 +17,7 @@
 <title>Events Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js\sc.js" ></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
         <p><strong>Hi! ${sessionScope.firstname}</strong></p>
         We are hoping you will find the event for you!
         <br>
-        <form id="postForm" class="postForm" action="Events" method="post">
+        <form name="eventForm" id="postForm" class="postForm" action="Events" method="post" onsubmit="return validateeventForm()">
 	<div class="form-group">
       <label for="email">Event Name:</label>
       <input type="text" class="form-control" id="event_name" placeholder="Enter name" name="event_name">
@@ -52,7 +53,7 @@
       <label for="email">Location:</label>
       <input type="text" class="form-control" id="location" placeholder="Enter location" name="location">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-default" onclick="validateeventForm()">Submit</button>
 </form>
       </div>
     </div>
@@ -65,7 +66,6 @@ for (Event event: EventList){
 	"<div class=\"col-sm-3\">"+
 	"<div class=\"well\">"+
 	"<p>"+"By: "+event.getCreator().getUsername()+"</p>"+
-	"<img src=\"bird.jpg\" class=\"img-circle\" height=\"55\" width=\"55\" alt=\"Avatar\">"+
 	"</div>"+
 	"</div>"+
 	"<div class=\"col-sm-9\">"+
@@ -80,28 +80,16 @@ for (Event event: EventList){
 
 %>
  </div>
-    <div class="col-sm-2 well">
-      <div class="thumbnail">
-        <p>Upcoming Events:</p>
-        <img src="paris.jpg" alt="Paris" width="400" height="300">
-        <p><strong>Paris</strong></p>
-        <p>Fri. 27 November 2015</p>
-        <button class="btn btn-primary">Info</button>
-      </div>      
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <jsp:include page="Footer.jsp"></jsp:include>
 
-
 </body>
+<script type="text/javascript">
+
+
+</script>
 </html>
 
 
