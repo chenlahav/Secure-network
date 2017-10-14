@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SecureApp</title>
+<title>Error</title>
 </head>
 <body>
-<h1>Login failed, please try again.</h1>
+<jsp:include page="FirstHeader.jsp"></jsp:include>
+<%
+	if(request.getAttribute("error")!=null){
+		out.print("<h1><center>"+request.getAttribute("error")+"</center></h1>");
+	}
+%>
 </body>
 </html>

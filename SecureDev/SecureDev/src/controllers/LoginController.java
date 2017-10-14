@@ -57,10 +57,15 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("telephone", user.getTelephone());
 			session.setAttribute("isAdmin",user.isAdmin());
 			session.setAttribute("ProfilePicture",user.getPathProfilePic());
+			
+			//same origin policy
+			response.setHeader("Set-Cookie", "JSESSIONID=" + session.getId() + "; HttpOnly; SameSite=strict");
+			
 			rd = request.getRequestDispatcher("/Home.jsp");
 		} 
 		else
 		{
+			request.setAttribute("error", "wrong username or password");
 			rd = request.getRequestDispatcher("/error.jsp");
 		}
 		
