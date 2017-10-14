@@ -14,6 +14,7 @@ import Repository.UserRepository;
 import database.Database;
 import model.Authenticator;
 import model.User;
+import utils.Xss;
   
 public class LoginController extends HttpServlet {
  
@@ -39,8 +40,9 @@ public class LoginController extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
 		Authenticator authenticator = new Authenticator();
-		String result = authenticator.authenticate(username, password);
+		String result = authenticator.authenticate(Xss.cleanString("username", username), password);
 		
 		if (result.equals("success")) 
 		{

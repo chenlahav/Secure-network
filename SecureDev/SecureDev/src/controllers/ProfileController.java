@@ -19,6 +19,8 @@ import Repository.EventRepository;
 import Repository.UserRepository;
 import model.Event;
 import model.User;
+import utils.Xss;
+import utils.validator;
 
 public class ProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,13 +39,26 @@ public class ProfileController extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-		userToEdit.setFirstName(request.getParameter("firstname"));
-		userToEdit.setLastName(request.getParameter("lastname"));
-		userToEdit.setUsername(request.getParameter("username"));
-		userToEdit.setEmail(request.getParameter("email"));
-		userToEdit.setBday(request.getParameter("bdate"));
-		userToEdit.setTelephone(request.getParameter("telephone"));
+		String firstname = request.getParameter("firstname");
+		String lastname = request.getParameter("lastname");
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		String bdate = request.getParameter("bdate");
+		String telephone = request.getParameter("telephone");
 		
+		if(inputvalidation(firstname,lastname,username,email,bdate,telephone) == false){
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
+		userToEdit.setFirstName(Xss.cleanString("firstname",firstname));
+		userToEdit.setLastName(Xss.cleanString("last name",lastname));
+		userToEdit.setUsername(Xss.cleanString("username",username));
+		userToEdit.setEmail(Xss.cleanString("email",email));
+		userToEdit.setBday(Xss.cleanString("dbate",bdate));
+		userToEdit.setTelephone(Xss.cleanString("telephone",telephone));
+	  
 //		Part file = request.getPart("img");
 //		String contentType = file.getContentType();
 //		RegisterController rc = new RegisterController();
@@ -106,4 +121,21 @@ public class ProfileController extends HttpServlet {
 	}
 	request.getRequestDispatcher("/Profile.jsp").forward(request, response);
 }
+	
+	public boolean inputvalidation(String firstName, String lastName, String username, String email, String bdate, String telephone){
+		
+		if(!validator.validateFirstname(firstName)) return false;
+		
+		if(!validator.validateLastname(lastName)) return false;
+		
+		if(!validator.validateUsername(username)) return false;
+		
+		if(!validator.validateEmail(email)) return false;
+		
+		if(!validator.validateBirthDate(bdate)) return false;
+		
+		if(!validator.validateTelephone(telephone)) return false;
+		
+		return true;
+	}
 }

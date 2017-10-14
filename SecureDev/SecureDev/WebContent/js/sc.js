@@ -206,21 +206,6 @@ function validateSearch(){
 	return true;
 }
 function validateProfileForm(){
-	//validate the ID number
-	var id = document.editProfile.id.value;
-	if(id == null || id==""){
-	    alert("You must fill your ID number");
-	    return false;
-	}else
-	    if(id.length<9){
-	        alert ("Please fill in correct ID number with 9 figuers");
-	        return false;
-	    }else
-	    if(isNaN(id))
-	        {
-	            alert("Please fill only numbers in the ID section");
-	            return false;
-	        }
 	//validate first name
 	var name = document.editProfile.firstname.value;
 	var onlyletters = /^[a-zA-Z]{2,20}$/;   
@@ -259,18 +244,8 @@ function validateProfileForm(){
 	            alert("Please enter your user name with only 2-12 letters and numbers");
 	            return false;
 	        }
-	var passreg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}$/;
-	var password = document.editProfile.password.value;
-	if (password == null || password=="")
-	    {
-	        alert("Please fill password");
-	        return false;
-	    }
-	else
-	    if(!password.match(passreg)){
-	            alert("Please enter your password  with 8-16 charachters, at least one sign and at least one capital letter");
-	            return false;
-	        }
+
+	
 	var bdayreg = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/; 
 	var bdate = document.editProfile.bdate.value;
 	if (bdate == null || bdate=="")

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Comment;
 import model.Post;
 import model.User;
+import utils.Xss;
+import utils.validator;
 import Repository.CommentsRepository;
 import Repository.PostRepository;
 import Repository.UserRepository;
@@ -37,20 +37,20 @@ public class PostController extends HttpServlet {
 			String title= request.getParameter("title");
 			String content = request.getParameter("content");
 			
+	 		if(inputvalidation(title, content) == false){
+				request.setAttribute("error", "Invalid post");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+				return;
+	 		}
+			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			String strnow = dtf.format(now);
 			String date = strnow.substring(0, strnow.indexOf(" "));
 			String time = strnow.substring(strnow.indexOf(" ")+1);
 			
-			Post newPost = new Post(title, content, author, date, time);
-			
-	 		if(inputValidator(newPost) == false){
-				request.setAttribute("error", "Invalid post");
-				rd = request.getRequestDispatcher("/error.jsp");
-				rd.forward(request, response);
-				return;
-	 		}
+			Post newPost = new Post(Xss.cleanString("title", title), Xss.cleanString("content", content), author, date, time);
 	 		
 			PostRepository pr = new PostRepository();
 			String result = pr.addPost(newPost);
@@ -95,20 +95,10 @@ public class PostController extends HttpServlet {
 		request.getRequestDispatcher("/Forum.jsp").forward(request, response);
 	}
 	
-	boolean inputValidator(Post post){
-		Pattern p;
-		Matcher m;
-		boolean b;
-		
-		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
-		m = p.matcher(post.getTitle());
-		b = m.matches();
-		if(b==false) return false;
-		
-		
-		m = p.matcher(post.getContent());
-		b = m.matches();
-		if(b==false) return false;
-		return true;
+	public boolean inputvalidation(String title, String content){
+			
+			if(!validator.validateText(title)) return false;
+			if(!validator.validateText(content)) return false;
+			return true;
 	}
 }

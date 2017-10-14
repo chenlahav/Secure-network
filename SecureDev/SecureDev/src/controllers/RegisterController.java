@@ -55,7 +55,7 @@ public class RegisterController extends HttpServlet{
 		String telephone = request.getParameter("telephone");
 		
 		RequestDispatcher rd = null;
-		if(inputvalidation(id, first_name, last_name, username, password, email, bdate, gender, telephone) == false){
+		if(inputvalidation(id, first_name, last_name, username, email, bdate, gender, telephone) == false){
 			request.setAttribute("error", "Invalid input");
 			rd = request.getRequestDispatcher("/error.jsp");
 			rd.forward(request, response);
@@ -100,6 +100,7 @@ public class RegisterController extends HttpServlet{
 			session.setAttribute("isAdmin",user.isAdmin());
 			session.setAttribute("ProfilePicture",user.getPathProfilePic());
 			rd = request.getRequestDispatcher("/Home.jsp");
+			rd.forward(request, response);
 		} 
 		else
 		{
@@ -126,7 +127,7 @@ public class RegisterController extends HttpServlet{
 		}
 	}
 	
-	public boolean inputvalidation(String id ,String firstName,String lastName, String userName,String password,String email,String bday, String gender, String telephone){
+	public boolean inputvalidation(String id ,String firstName,String lastName, String userName,String email,String bday, String gender, String telephone){
 		
 		if(!validator.validateUserId(id)) return false;
 		
@@ -135,8 +136,6 @@ public class RegisterController extends HttpServlet{
 		if(!validator.validateLastname(lastName)) return false;
 		
 		if(!validator.validateUsername(userName)) return false;
-		
-		if(!validator.validatePassword(password)) return false;
 		
 		if(!validator.validateEmail(email)) return false;
 		

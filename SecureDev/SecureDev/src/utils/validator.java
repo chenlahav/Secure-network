@@ -5,7 +5,7 @@ import org.owasp.esapi.ESAPI;
 public class validator {
 
 	public static boolean validatePassword(String pass){
-		return ESAPI.validator().isValidInput("password", pass, "Password", 12, false);
+		return ESAPI.validator().isValidInput("password", pass, "Password", 16, false);
 	}
 	
 	public static boolean validateUserId(String userid){
@@ -34,5 +34,9 @@ public class validator {
 	
 	public static boolean validateTelephone(String telephone){
 		return ESAPI.validator().isValidInput("telephone", telephone, "Telephone", 10, false);
+	}
+	
+	public static boolean validateText(String text){
+		return ESAPI.validator().isValidInput("text", text, "Text", 40, false);
 	}
 }

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Repository.UserRepository;
-import database.Database;
 import model.User;
+import utils.Xss;
 
 public class SearchController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -33,7 +32,8 @@ public class SearchController extends HttpServlet{
 		}
 
 		UserRepository ur = new UserRepository();
-		List<User> listOfUsers = ur.getUsersByFirstname(request.getParameter("firstname"));
+		String firstname = Xss.cleanString("firstname", request.getParameter("firstname"));
+		List<User> listOfUsers = ur.getUsersByFirstname(firstname);
 		request.setAttribute("usersresults", listOfUsers);
 		
 		rd = request.getRequestDispatcher("/SearchResult.jsp");
