@@ -3,8 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +13,8 @@ import Repository.EventRepository;
 import Repository.UserRepository;
 import model.Event;
 import model.User;
+import utils.Xss;
+import utils.validator;
  
 
 public class EventController extends HttpServlet {
@@ -42,14 +42,16 @@ public class EventController extends HttpServlet {
 		String time = request.getParameter("time");
 		String description = request.getParameter("description");
 		String location = request.getParameter("location");
-		Event newEvent = new Event(event_name, date, time, description, location, creator);
-		if(inputValidator(newEvent) == false){
+		
+		if(inputvalidation(event_name, date, time, description, location) == false){
 			request.setAttribute("error", "Invalid event");
 			rd = request.getRequestDispatcher("/error.jsp");
 			rd.forward(request, response);
 			return;
 		}
 		
+		Event newEvent = new Event(Xss.cleanString("event_name", event_name), Xss.cleanString("date", date), Xss.cleanString("time", time), Xss.cleanString("description", description), Xss.cleanString("location", location), creator);
+
 		String result = er.addEvent(newEvent);
 		
 		if(result.equals("success")){
@@ -91,42 +93,13 @@ public class EventController extends HttpServlet {
 		request.getRequestDispatcher("/Events.jsp").forward(request, response);
 	}
 	
-
-	boolean inputValidator(Event event){
-		Pattern p;
-		Matcher m;
-		boolean b;
+	public boolean inputvalidation(String eventname, String date, String time, String description, String location){
 		
-		//check event name 
-		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,20}$");
-		m = p.matcher(event.getEvent_name());
-		b = m.matches();
-		if(b==false) return false;
-		
-		//check event date
-		p = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$");
-		m = p.matcher(event.getDate());
-		b = m.matches();
-		if(b==false) return false;
-		
-		//check event time
-		p = Pattern.compile("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
-		m = p.matcher(event.getTime());
-		b = m.matches();
-		if(b==false) return false;
-				
-		//check description
-		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
-		m = p.matcher(event.getDescription());
-		b = m.matches();
-		if(b==false) return false;
-			
-		//check location
-		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,20}$");
-		m = p.matcher(event.getLocation());
-		b = m.matches();
-		if(b==false) return false;
-				
+		if(!validator.validateText(eventname)) return false;
+		if(!validator.validateBirthDate(date)) return false;
+		if(!validator.validateTime(time)) return false;
+		if(!validator.validateText(description)) return false;
+		if(!validator.validateText(location)) return false;
 		return true;
-	}	
+	}
 }

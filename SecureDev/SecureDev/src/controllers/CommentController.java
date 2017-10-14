@@ -3,8 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +14,8 @@ import Repository.CommentsRepository;
 import Repository.UserRepository;
 import model.Comment;
 import model.User;
+import utils.Xss;
+import utils.validator;
 
 public class CommentController  extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,6 +30,12 @@ public class CommentController  extends HttpServlet {
 		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(creator != null){
 			String content = request.getParameter("content");
+			if(inputvalidation(content) == false){
+				request.setAttribute("error", "Invalid comment");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+				return;
+			}
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 			LocalDateTime now = LocalDateTime.now();
 			String strnow = dtf.format(now);
@@ -37,13 +43,8 @@ public class CommentController  extends HttpServlet {
 			String time = strnow.substring(strnow.indexOf(" ")+1);
 			String idS = (String)request.getParameter("postid");
 			int postId = Integer.parseInt(idS);
-			Comment newComment = new Comment(time, date, content, postId, creator);
-	 		if(inputValidator(newComment) == false){
-				request.setAttribute("error", "Invalid comment");
-				rd = request.getRequestDispatcher("/error.jsp");
-				rd.forward(request, response);
-				return;
-	 		}
+			Comment newComment = new Comment(time, date,Xss.cleanString("content", content) , postId, creator);
+
 			CommentsRepository cr = new CommentsRepository();
 			String result = cr.addComment(newComment);
 			
@@ -64,15 +65,10 @@ public class CommentController  extends HttpServlet {
 		
 	}
 	
-	boolean inputValidator(Comment comment){
-		Pattern p;
-		Matcher m;
-		boolean b;
+	public boolean inputvalidation(String content){
 		
-		p = Pattern.compile("^[a-zA-Z'!@#$%^&*().\\s]{1,40}$");
-		m = p.matcher(comment.getContent());
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateText(content)) return false;
+
 		return true;
 	}
 }
