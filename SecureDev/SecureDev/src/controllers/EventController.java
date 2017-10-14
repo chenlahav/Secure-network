@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +25,16 @@ public class EventController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
 		EventRepository er = new EventRepository();
 		UserRepository ur = new UserRepository();
 		
 		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(creator == null){
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		else{
 		String event_name = request.getParameter("event_name");
@@ -40,8 +44,9 @@ public class EventController extends HttpServlet {
 		String location = request.getParameter("location");
 		Event newEvent = new Event(event_name, date, time, description, location, creator);
 		if(inputValidator(newEvent) == false){
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "error while adding post");
+			request.setAttribute("error", "Invalid event");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 			return;
 		}
 		
@@ -50,14 +55,23 @@ public class EventController extends HttpServlet {
 		if(result.equals("success")){
 			doGet(request, response);
 		}else{
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error","error while adding event");
-		}
-		//rd.forward(request, response);
+			request.setAttribute("error", "The operation failed");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			}
 		}
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
+
+		if(request.getSession().getAttribute("userID") == null){
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
 		EventRepository pr = new EventRepository();
 		List<Event> allevents = pr.getAllEvents();
 		request.setAttribute("allevents", allevents);

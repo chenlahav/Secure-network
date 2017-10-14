@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,17 +18,14 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		RequestDispatcher rd = null;
 		if (request.getSession().getAttribute("userID")!= null){
 			request.getRequestDispatcher("/Home.jsp").forward(request, response);
 		}
 		else{
-			request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-	}
-
-
 }

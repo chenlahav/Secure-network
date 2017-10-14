@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class PostController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		RequestDispatcher rd = null;
 		UserRepository ur = new UserRepository();
 		User author = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(author != null){
@@ -44,8 +46,9 @@ public class PostController extends HttpServlet {
 			Post newPost = new Post(title, content, author, date, time);
 			
 	 		if(inputValidator(newPost) == false){
-	 			request.getRequestDispatcher("/error.jsp");
-				request.setAttribute("error", "error while adding post");
+				request.setAttribute("error", "Invalid post");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
 				return;
 	 		}
 	 		
@@ -55,13 +58,16 @@ public class PostController extends HttpServlet {
 			if (result.equals("success")) {
 				doGet(request, response);
 			}else{
-				request.getRequestDispatcher("/error.jsp");
-				request.setAttribute("error", "error while adding post");
+				request.setAttribute("error", "The operation failed");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
+				return;
 			}
 		}
 		else{
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");	
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 		}
 		
 
@@ -70,6 +76,15 @@ public class PostController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		RequestDispatcher rd = null;
+
+		if(request.getSession().getAttribute("userID") == null){
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
 		PostRepository pr = new PostRepository();
 		List<Post> allposts = pr.getAllPosts();
 		request.setAttribute("allposts", allposts);

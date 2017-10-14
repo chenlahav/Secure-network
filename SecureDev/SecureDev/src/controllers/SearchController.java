@@ -23,16 +23,19 @@ public class SearchController extends HttpServlet{
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			Database.getInstance().init();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		
+		RequestDispatcher rd = null;
+		if(request.getSession().getAttribute("userID") == null){
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
+
 		UserRepository ur = new UserRepository();
 		List<User> listOfUsers = ur.getUsersByFirstname(request.getParameter("firstname"));
 		request.setAttribute("usersresults", listOfUsers);
 		
-		RequestDispatcher rd = null;
 		rd = request.getRequestDispatcher("/SearchResult.jsp");
 		rd.forward(request, response);
 		}

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 //import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,14 @@ public class ProfileController extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
 		UserRepository ur = new UserRepository();
 		User userToEdit = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(userToEdit == null){
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		userToEdit.setFirstName(request.getParameter("first name"));
 		userToEdit.setLastName(request.getParameter("last name"));
@@ -71,16 +75,20 @@ public class ProfileController extends HttpServlet {
 			
 			doGet(request, response);
 		}else{
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error","error while edit user");
+			request.setAttribute("error", "The operation failed");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	UserRepository ur = new UserRepository();
-	User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
-	if(creator == null){
-		request.getRequestDispatcher("/error.jsp");
-		request.setAttribute("error", "not in session");
+	RequestDispatcher rd = null;
+
+	if(request.getSession().getAttribute("userID") == null){
+		request.setAttribute("error", "Not in a session");
+		rd = request.getRequestDispatcher("/error.jsp");
+		rd.forward(request, response);
+		return;
 	}
 	
 	EventRepository er = new EventRepository();

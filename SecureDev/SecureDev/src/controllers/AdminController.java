@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,19 +30,26 @@ public class AdminController extends HttpServlet {
 	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		RequestDispatcher rd = null;
+		
 		EventRepository er = new EventRepository();
 		UserRepository ur = new UserRepository();
 		PostRepository pr = new PostRepository();
 
 		User creator = ur.getUserById((String) request.getSession().getAttribute("userID"));
 		if (creator.isAdmin() == false) {
-			request.getRequestDispatcher("/error.jsp");
+			request.setAttribute("error", "Not permmision");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 			return;
 		}
 
 		if (creator == null) {
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		} else {
 			String uIdToDelete = request.getParameter("hiddenu");
 			String pIdToDelete = request.getParameter("hiddenp");
@@ -91,27 +99,31 @@ public class AdminController extends HttpServlet {
 			if (result.equals("success")) {
 				doGet(request, response);
 			} else {
-				request.getRequestDispatcher("/error.jsp");
-				request.setAttribute("error", "error while adding event");
+				request.setAttribute("error", "The operation failed");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
 			}
 		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		RequestDispatcher rd = null;
 		EventRepository er = new EventRepository();
 		UserRepository ur = new UserRepository();
 		PostRepository pr = new PostRepository();
 
 		User creator = ur.getUserById((String) request.getSession().getAttribute("userID"));
 		if (creator == null) {
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");
-
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
 		if (creator.isAdmin() == false) {
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "You access this page");
+			request.setAttribute("error", "Not permmision");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 			return;
 		}
 

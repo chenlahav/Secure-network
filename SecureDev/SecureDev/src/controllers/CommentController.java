@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ public class CommentController  extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
 		UserRepository ur = new UserRepository();
 		User creator = ur.getUserById((String)request.getSession().getAttribute("userID"));
 		if(creator != null){
@@ -37,8 +39,9 @@ public class CommentController  extends HttpServlet {
 			int postId = Integer.parseInt(idS);
 			Comment newComment = new Comment(time, date, content, postId, creator);
 	 		if(inputValidator(newComment) == false){
-	 			request.getRequestDispatcher("/error.jsp");
-				request.setAttribute("error", "error while adding post");
+				request.setAttribute("error", "Invalid comment");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
 				return;
 	 		}
 			CommentsRepository cr = new CommentsRepository();
@@ -48,13 +51,15 @@ public class CommentController  extends HttpServlet {
 				PostController pc = new PostController();
 				pc.doGet(request, response);
 			}else{
-				request.getRequestDispatcher("/error.jsp");
-				request.setAttribute("error", "error while adding post");
+				request.setAttribute("error", "The operation failed");
+				rd = request.getRequestDispatcher("/error.jsp");
+				rd.forward(request, response);
 			}
 		}
 		else{
-			request.getRequestDispatcher("/error.jsp");
-			request.setAttribute("error", "not in session");	
+			request.setAttribute("error", "Not in a session");
+			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
 		}
 		
 	}

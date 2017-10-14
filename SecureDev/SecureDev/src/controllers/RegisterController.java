@@ -56,6 +56,7 @@ public class RegisterController extends HttpServlet{
 		
 		RequestDispatcher rd = null;
 		if(inputvalidation(id, first_name, last_name, username, password, email, bdate, gender, telephone) == false){
+			request.setAttribute("error", "Invalid input");
 			rd = request.getRequestDispatcher("/error.jsp");
 			rd.forward(request, response);
 			return;
@@ -102,10 +103,11 @@ public class RegisterController extends HttpServlet{
 		} 
 		else
 		{
+			request.setAttribute("error", "The operation failed");
 			rd = request.getRequestDispatcher("/error.jsp");
+			rd.forward(request, response);
+			return;
 		}
-		
-		rd.forward(request, response);
 	}
 	
 	public boolean storeProfileImage(Part filePart, String id){
