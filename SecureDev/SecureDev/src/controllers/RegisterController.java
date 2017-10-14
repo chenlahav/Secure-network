@@ -7,8 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +22,8 @@ import Repository.UserRepository;
 import database.Database;
 import model.Authenticator;
 import model.User;
+import utils.Xss;
+import utils.validator;
 
 
 @WebServlet("/uploadServlet")
@@ -69,6 +69,15 @@ public class RegisterController extends HttpServlet{
 		}else{
 			isProfileImage = false;
 		}
+		
+		username = Xss.cleanString("username", username);
+		id = Xss.cleanString("userId", id);
+		email = Xss.cleanString("email", email);
+		first_name = Xss.cleanString("firstName", first_name);
+		last_name = Xss.cleanString("lastName", last_name);
+		bdate = Xss.cleanString("bdate", bdate);
+		telephone = Xss.cleanString("telephone", telephone);
+		
 		User newUser= new User(username,id,email,first_name,last_name,bdate,gender,telephone,isProfileImage);
 		UserRepository rep = new UserRepository();
 		String result = rep.addUser(newUser,hashedPassword);
@@ -116,61 +125,25 @@ public class RegisterController extends HttpServlet{
 	}
 	
 	public boolean inputvalidation(String id ,String firstName,String lastName, String userName,String password,String email,String bday, String gender, String telephone){
-		Pattern p;
-		Matcher m;
-		boolean b;
 		
-		//check Id field
-		p = Pattern.compile("^[0-9]{9}$");
-		m = p.matcher(id);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateUserId(id)) return false;
 		
-		//check first name field
-		p = Pattern.compile("^[a-zA-Z]{2,20}$");
-		m = p.matcher(firstName);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateFirstname(firstName)) return false;
 		
-		//check last name field
-		p = Pattern.compile("^[a-zA-Z]{2,20}$");
-		m = p.matcher(lastName);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateLastname(lastName)) return false;
 		
-		//check last user name field
-		p = Pattern.compile("^[a-zA-Z0-9]{2,12}$");
-		m = p.matcher(userName);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateUsername(userName)) return false;
 		
-		//check password field	
-		p = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,16}");
-		m = p.matcher(password);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validatePassword(password)) return false;
 		
-		//check email field	
-		p = Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
-		m = p.matcher(email);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateEmail(email)) return false;
 		
-		//check birth date field	
-		p = Pattern.compile("^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$");
-		m = p.matcher(bday);
-		b = m.matches();
-		if(b==false) return false;
+		if(!validator.validateBirthDate(bday)) return false;
+		
+		if(!validator.validateTelephone(telephone)) return false;
 		
 		//check gender field	
-		//
 		if(!Objects.equals(gender, "Male")&&(!Objects.equals(gender, "Female"))) return false;
-		
-		//check telephone field	
-		p = Pattern.compile("\\(?([0-9]{3})\\)?([ .-]?)([0-9]{3})\\2([0-9]{4})$");
-		m = p.matcher(telephone);
-		b = m.matches();
-		if(b==false) return false;
 		
 		return true;
 	}

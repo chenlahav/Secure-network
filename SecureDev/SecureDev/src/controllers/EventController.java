@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import Repository.EventRepository;
 import Repository.UserRepository;
 import model.Event;
-import model.Post;
 import model.User;
  
 

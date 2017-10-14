@@ -22,5 +22,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/lib/esapi-2.1.0.1.jar" sourcepath="WebContent/lib/esapi-2.1.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/lib/esapi-2.1.0.1-sources.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
