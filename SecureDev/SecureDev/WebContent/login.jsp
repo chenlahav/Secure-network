@@ -30,7 +30,7 @@
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default">Log In</button>
-        <span class="pull-right"><a href="registration.jsp">Register</a></span>
+        <span class="pull-right"><a href="/SecureDev/RegisterController">Register</a></span>
       </div>
     </div>
   </form>

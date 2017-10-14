@@ -111,6 +111,13 @@ public class RegisterController extends HttpServlet{
 		}
 	}
 	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = null;
+		rd = request.getRequestDispatcher("/registration.jsp");
+		rd.forward(request, response);
+	}
+	
 	public boolean storeProfileImage(Part filePart, String id){
 		try{
 		 InputStream  inputStream = filePart.getInputStream();
