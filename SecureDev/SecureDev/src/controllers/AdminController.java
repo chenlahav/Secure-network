@@ -18,6 +18,7 @@ import Repository.UserRepository;
 import Repository.PostRepository;
 import model.Event;
 import model.User;
+import utils.Xss;
 import model.Post;
 
 public class AdminController extends HttpServlet {
@@ -57,7 +58,7 @@ public class AdminController extends HttpServlet {
 			String uToAdmin = request.getParameter("hiddenAdmin");
 			String result = null;
 			if (uToAdmin != null) {
-				User userToAdmin = ur.getUserById(uToAdmin);
+				User userToAdmin = ur.getUserById(Xss.cleanString("uToAdmin", uToAdmin));
 				if(userToAdmin.isAdmin()){
 					userToAdmin.setAdmin(false);
 					result = ur.editUser(userToAdmin);
@@ -68,7 +69,7 @@ public class AdminController extends HttpServlet {
 				
 			}
 			if (uIdToDelete != null) {
-				User UserToDelete = ur.getUserById(uIdToDelete);
+				User UserToDelete = ur.getUserById(Xss.cleanString("uIdToDelete", uIdToDelete));
 				result = ur.deleteUser(UserToDelete);
 				if(UserToDelete.getisProfileImage()){		//remove the current image
 				try {

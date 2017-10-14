@@ -39,4 +39,8 @@ public class validator {
 	public static boolean validateText(String text){
 		return ESAPI.validator().isValidInput("text", text, "Text", 40, false);
 	}
+	
+	public static boolean validateTime(String time){
+		return ESAPI.validator().isValidInput("time", time, "Time", 5, false);
+	}
 }
