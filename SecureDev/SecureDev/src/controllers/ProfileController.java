@@ -37,8 +37,8 @@ public class ProfileController extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-		userToEdit.setFirstName(request.getParameter("first name"));
-		userToEdit.setLastName(request.getParameter("last name"));
+		userToEdit.setFirstName(request.getParameter("firstname"));
+		userToEdit.setLastName(request.getParameter("lastname"));
 		userToEdit.setUsername(request.getParameter("username"));
 		userToEdit.setEmail(request.getParameter("email"));
 		userToEdit.setBday(request.getParameter("bdate"));

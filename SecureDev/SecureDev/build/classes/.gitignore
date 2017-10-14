@@ -1,1 +1,7 @@
+/ESAPI.properties
+/Repository/
 /controllers/
+/database/
+/model/
+/utils/
+/validation.properties
