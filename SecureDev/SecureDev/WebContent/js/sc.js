@@ -77,11 +77,7 @@ else
             return false;
         }
 var image = document.registrationForm.img.value;
-if (image == null || image=="")
-	{
-	    alert("Please upload your image (onky jpg)");
-	    return false;
-	}else {
+if (image) {
         var Extension = FileUploadPath.substring(
         image.lastIndexOf('.') + 1).toLowerCase();
         	if (!Extension == "jpg") {
@@ -89,6 +85,18 @@ if (image == null || image=="")
         		return false;
         	}
      }
+var phoneReg = /^\d{10}$/;
+var phone = document.registrationForm.telephone.value;
+if (phone == null || phone=="")
+{
+    alert("Please fill the phone number");
+    return false;
+}
+else
+if(!phone.match(phoneReg)){
+        alert("Please enter your phone number with only 10 numbers");
+        return false;
+    }
 return true;
 }
 
@@ -105,7 +113,7 @@ function validatepostForm(){
 		alert("Please add your title");
 		return false;
 	}else
-	if (!newPTitle.match(onlyletters)){
+	if (!newPTitle.match(regex)){
 		alert("Please fill only letters in the title");
 		return false;
 	}else
@@ -138,7 +146,7 @@ function validateeventForm(){
 		alert("Please add event name");
 		return false;
 	}else
-	if (!event_name.match(onlyletters)){
+	if (!event_name.match(regex)){
 			alert("Please fill only letters in the event name");
 			return false;
 		}
@@ -146,7 +154,7 @@ function validateeventForm(){
 	var datereg = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
 	if (date == null || date=="")
     {
-        alert("Please fill your Birth Date");
+        alert("Please add the event Date");
         return false;
     }
 else
@@ -244,8 +252,18 @@ function validateProfileForm(){
 	            alert("Please enter your user name with only 2-12 letters and numbers");
 	            return false;
 	        }
-
-	
+	var passreg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,16}$/;
+	var password = document.editProfile.password.value;
+	if (password == null || password=="")
+	    {
+	        alert("Please fill password");
+	        return false;
+	    }
+	else
+	    if(!password.match(passreg)){
+	            alert("Please enter your password  with 8-16 charachters, at least one sign and at least one capital letter");
+	            return false;
+	        }
 	var bdayreg = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/; 
 	var bdate = document.editProfile.bdate.value;
 	if (bdate == null || bdate=="")
@@ -258,5 +276,17 @@ function validateProfileForm(){
 	            alert("Please enter your Birth Date in format dd/mm/yyyy");
 	            return false;
 	        }
+	var phoneReg = /^\d{10}$/;
+	var phone = document.editProfile.telephone.value;
+	if (phone == null || phone=="")
+    {
+        alert("Please fill the phone number");
+        return false;
+    }
+else
+    if(!phone.match(phoneReg)){
+            alert("Please enter your phone number with only 10 numbers");
+            return false;
+        }
 	return true;
 }
